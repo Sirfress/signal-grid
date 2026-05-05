@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNAL GRID // Cyber Intelligence Feed</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="modal-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="grid-overlay"></div>
+    <div class="scan-line"></div>
+    
+    <header class="terminal-header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="brand">
+                    <span class="label">SIGNAL GRID // DAILY INTEL</span>
+                    <h1>SIGNAL <span class="highlight">GRID</span></h1>
+                    <p class="tagline">Cyber + AI signal, filtered for actual value.</p>
+                </div>
+
+                <!-- Search Bar moved here -->
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" placeholder="Search signals... (try: exploit, AI, breach, zero-day)" />
+                    <button id="clearSearch" style="display: none;">✕</button>
+                </div>
+            </div>
+
+            <div class="hacker-quote">
+                <span id="rotatingQuote"></span>
+            </div>
+
+            <div class="status-panel">
+                <span class="window-label">WINDOW</span>
+                <div class="time-window">last 24 hours</div>
+                <div class="status-grid">
+                    <div class="stat">
+                        <span class="label">THREAT LEVEL</span>
+                        <span class="value tracking" id="threat-level">ELEVATED</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">REFRESHED</span>
+                        <span class="value" id="refresh-time">--</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="container">
+
+    <main class="container">
+        <div class="metrics-bar">
+            <div class="metric-card">
+                <span class="metric-label">SIGNALS</span>
+                <span class="metric-value" id="signal-count">--</span>
+            </div>
+            <div class="metric-card">
+                <span class="metric-label">MUST KNOW</span>
+                <span class="metric-value highlight" id="critical-count">--</span>
+            </div>
+            <div class="metric-card">
+                <span class="metric-label">WATCH LIST</span>
+                <span class="metric-value" id="watch-count">--</span>
+            </div>
+            <div class="metric-card">
+                <span class="metric-label">SOURCES</span>
+                <span class="metric-value" id="source-count">--</span>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-label">FILTERS</div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="news">News</button>
+                <button class="filter-btn" data-filter="videos">Videos</button>
+                <button class="filter-btn" data-filter="community">Community</button>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- TOP NEWS SECTION -->
+            <section class="news-section">
+                <div class="section-header">
+                    <h2>TOP NEWS</h2>
+                    <div class="news-tags">
+                        <button class="tag-btn" onclick="signalGrid.filterByTag('patch')">PATCH</button>
+                        <button class="tag-btn" onclick="signalGrid.filterByTag('exploit')">EXPLOIT</button>
+                        <button class="tag-btn" onclick="signalGrid.filterByTag('platform')">PLATFORM</button>
+                    </div>
+                </div>
+                <div id="news-container" class="news-list">
+                    <!-- News items will be injected here -->
+                </div>
+            </section>
+
+            <!-- WORTH WATCHING SECTION -->
+            <aside class="video-section">
+                <div class="section-header">
+                    <h2>WORTH WATCHING</h2>
+                    <div class="creator-label">CREATOR INTEL</div>
+                </div>
+                <div id="video-container" class="video-list">
+                    <!-- Video items will be injected here -->
+                </div>
+            </aside>
+        </div>
+
+        <div class="sources-panel">
+            <h3>ACTIVE SOURCES</h3>
+            <div class="sources-list" id="sources-list">
+                <!-- Sources will be dynamically populated -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="terminal-footer">
+        <div class="footer-content">
+            <div class="status-text">
+                <span class="pulse"></span>
+                SYSTEM ACTIVE // MONITORING FEEDS
+            </div>
+            <div class="system-info" id="systemInfo">
+                <span id="userAgent"></span>
+                <span id="screenRes"></span>
+                <span id="localTime"></span>
+            </div>
+            <div class="build-info">
+                BUILD v3.0 // POWERED BY CLAUDE + FREE TIER MAGIC
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Assistant -->
+    <div id="aiAssistant" class="ai-assistant">
+        <button id="aiToggle" class="ai-toggle">
+            🤖 <span>Ask AI</span>
+        </button>
+        <div id="aiPanel" class="ai-panel" style="display: none;">
+            <div class="ai-header">
+                <h3>AI Assistant</h3>
+                <button id="aiClose">×</button>
+            </div>
+            <div id="aiMessages" class="ai-messages">
+                <div class="ai-message ai-message-assistant">
+                    <strong>AI:</strong> Hi! I can help you search signals, explain security concepts, or answer questions about the news. Try asking: "What are the most critical vulnerabilities?" or "Explain zero-day exploits"
+                </div>
+            </div>
+            <div class="ai-input-wrapper">
+                <input type="text" id="aiInput" placeholder="Ask about signals..." />
+                <button id="aiSend">Send</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+/* News Actions Buttons */
+.news-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.read-more-btn,
+.source-btn {
+    padding: 0.5rem 1rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: 1px solid var(--border-color);
+    background: var(--bg-dark);
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+}
+
+.read-more-btn {
+    background: var(--bg-card);
+    color: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+}
+
+.read-more-btn:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+.source-btn {
+    color: var(--text-dim);
+}
+
+.source-btn:hover {
+    color: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 14, 26, 0.95);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.modal-content {
+    background: var(--bg-panel);
+    border: 2px solid var(--accent-cyan);
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin: 0;
+    flex: 1;
+    line-height: 1.4;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+.modal-close:hover {
+    color: var(--accent-cyan);
+    transform: rotate(90deg);
+}
+
+.modal-meta {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: var(--bg-dark);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-source {
+    color: var(--accent-cyan);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.modal-rating {
+    color: var(--accent-magenta);
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-summary {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.modal-signal {
+    background: var(--bg-card);
+    border-left: 3px solid var(--accent-cyan);
+    padding: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-dark);
+}
+
+.modal-source-link {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    background: var(--accent-cyan);
+    color: var(--bg-dark);
+    text-decoration: none;
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.modal-source-link:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.modal-close-btn {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-family: 'Share Tech Mono', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.modal-close-btn:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+.news-title {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.news-title:hover {
+    color: var(--accent-cyan);
+}
+
+@media (max-width: 640px) {
+    .modal {
+        padding: 1rem;
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 1.5rem;
+    }
+    
+    .modal-title {
+        font-size: 1.2rem;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+    }
+    
+    .news-actions {
+        flex-direction: column;
+    }
+}
