@@ -690,53 +690,6 @@ h2 {
     opacity: 0.5;
 }
 
-.search-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-}
-
-.search-wrapper input {
-    width: 100%;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 0.75rem 2.5rem 0.75rem 1rem;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-}
-
-.search-wrapper input:focus {
-    outline: none;
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-    background: var(--bg-dark);
-}
-
-.search-wrapper input::placeholder {
-    color: var(--text-dim);
-    font-size: 0.85rem;
-}
-
-.search-wrapper button {
-    position: absolute;
-    right: 0.75rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;
-    border: none;
-    color: var(--text-dim);
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0.5rem;
-    transition: color 0.3s ease;
-}
-
-.search-wrapper button:hover {
-    color: var(--accent-cyan);
-}
-
 .badge {
     padding: 0.15rem 0.5rem;
     font-size: 0.65rem;
