@@ -1,81 +1,51 @@
 {
   "news": [
     {
-      "title": "AI Product Graveyard",
-      "source": "Hacker News",
-      "url": "https://tooldirectory.ai/ai-graveyard",
-      "timestamp": "",
-      "rating": 3.5,
-      "priority": "WORTH KNOWING",
-      "summary": "A curated catalog tracking discontinued AI products and services, providing a historical record of the AI product lifecycle. This type of resource is valuable for understanding market trends, identifying patterns in AI product failures, and informing investment or adoption decisions. Security professionals and enterprises benefit from knowing which AI tools have been abandoned, as orphaned AI integrations can become attack vectors. The graveyard highlights the volatility of the AI tooling space and the risks of vendor dependency. Organizations that adopted defunct AI products may have residual security or compliance exposure. This serves as a cautionary reference for those evaluating AI vendor longevity before committing to integrations.",
-      "signal": "Useful for evaluating AI vendor risk and avoiding dependency on tools with high discontinuation probability."
-    },
-    {
       "title": "Google Chrome silently installs a 4 GB AI model on your device without consent",
       "source": "Hacker News",
       "url": "https://www.thatprivacyguy.com/blog/chrome-silent-nano-install/",
       "timestamp": "",
-      "rating": 4.5,
+      "rating": 4.6,
       "priority": "HIGH VALUE",
-      "summary": "Google Chrome has been found to silently download and install a 4 GB AI model (reportedly Gemini Nano) onto user devices without explicit user consent or notification. This raises significant privacy, security, and resource concerns as users have no awareness of the local model's presence or its data access scope. From a security perspective, locally installed AI models expand the attack surface, potentially enabling new classes of prompt injection or model extraction attacks. The lack of consent violates user autonomy and may conflict with data protection regulations such as GDPR in jurisdictions where silent software installation requires disclosure. Enterprise environments running Chrome on managed endpoints could see unexpected disk and resource consumption impacting performance. This pattern of browser vendors bundling large AI components without opt-in mechanisms sets a concerning precedent for user control over their own hardware resources.",
-      "signal": "Critical privacy and endpoint security concern \u2014 enterprises should audit Chrome deployments for unexpected AI model installations and assess policy implications."
+      "summary": "This report alleges that Google Chrome is silently downloading and installing a 4 GB AI model (likely Gemini Nano) onto user devices without explicit user consent, raising serious privacy and security concerns. Silent large-scale installations bypass user awareness and violate informed consent principles that are foundational to endpoint security hygiene. A 4 GB model installation represents significant disk usage and potential network overhead, and could expand the browser's attack surface if the model or its APIs are exploitable. Enterprise security teams should be alarmed as this behavior may circumvent software installation policies and endpoint management controls. The inclusion of local AI inference capabilities in browsers creates new threat vectors, including potential data exfiltration through model interactions or prompt injection attacks. Organizations with strict data governance policies may find this violates compliance requirements, particularly in regulated industries. Security professionals should audit Chrome deployments for unexpected large file writes and consider policy enforcement to restrict unapproved installations.",
+      "signal": "Silent large-scale AI model installation by a major browser vendor raises consent, compliance, and attack surface concerns for enterprise and privacy-conscious users."
     },
     {
-      "title": "When everyone has AI and the company still learns nothing",
+      "title": "GLM-5V-Turbo: Toward a Native Foundation Model for Multimodal Agents",
       "source": "Hacker News",
-      "url": "https://www.robert-glaser.de/when-everyone-has-ai-and-the-company-still-learns-nothing/",
-      "timestamp": "",
-      "rating": 3.5,
-      "priority": "WORTH KNOWING",
-      "summary": "This piece explores the organizational paradox where widespread AI tool adoption fails to translate into institutional learning or improved decision-making. The author argues that AI tools, when used individually and in siloed ways, can accelerate individual productivity while simultaneously fragmenting organizational knowledge. This has security implications as AI-assisted workflows may bypass traditional documentation, review, and knowledge-sharing processes that enforce security controls. The failure to integrate AI usage into structured organizational learning loops can lead to inconsistent security practices and shadow IT-like sprawl of AI tool usage. For security teams, this underscores the importance of governance frameworks that capture AI-assisted work outputs within existing knowledge management and audit systems.",
-      "signal": "Relevant for CISOs building AI governance frameworks \u2014 highlights how ungoverned AI adoption can erode institutional security knowledge and process consistency."
-    },
-    {
-      "title": "How OpenAI delivers low-latency voice AI at scale",
-      "source": "Hacker News",
-      "url": "https://openai.com/index/delivering-low-latency-voice-ai-at-scale/",
+      "url": "https://arxiv.org/abs/2604.26752",
       "timestamp": "",
       "rating": 4.0,
       "priority": "HIGH VALUE",
-      "summary": "OpenAI provides a technical deep dive into the infrastructure and engineering decisions behind their low-latency voice AI systems, covering topics such as real-time streaming, model optimization, and distributed inference at scale. The architecture details are valuable for AI/ML engineers building voice-enabled applications and for understanding how frontier AI capabilities are being productionized. From a security standpoint, real-time voice AI systems introduce unique attack surfaces including voice injection, real-time prompt injection via audio, and potential for voice-based social engineering at scale. Understanding OpenAI's scaling approach informs competitive threat modeling for organizations deploying similar systems. The engineering trade-offs discussed between latency, accuracy, and cost have direct implications for anyone architecting AI-powered communication systems.",
-      "signal": "Valuable technical reference for engineers building voice AI infrastructure and security teams assessing real-time AI attack surfaces."
+      "summary": "GLM-5V-Turbo is a new multimodal foundation model from Zhipu AI designed natively for agentic tasks, suggesting it is optimized for autonomous decision-making across vision and language modalities rather than passive question-answering. Native multimodal agent models represent an important evolution in AI capability, as they can perceive and act across diverse environments including web interfaces, documents, and visual data. This has significant implications for both offensive and defensive security: capable multimodal agents could automate complex attack chains or social engineering at scale. The 'turbo' designation implies efficiency optimizations that could enable deployment in resource-constrained or real-time environments. Researchers and security teams should monitor this model's capabilities, particularly around tool use, web interaction, and autonomous task completion. The arxiv preprint format suggests cutting-edge research that may not yet be widely deployed but signals the direction of frontier AI development. Security professionals building defenses against AI-assisted attacks should study this architecture.",
+      "signal": "New natively agentic multimodal foundation model signals acceleration of autonomous AI agents with potential offensive security implications."
     },
     {
-      "title": "CVE-2026-31431: Copy Fail vs. rootless containers",
+      "title": "Show HN: Airbyte Agents \u2013 context for agents across multiple data sources",
       "source": "Hacker News",
-      "url": "https://www.dragonsreach.it/2026/05/04/cve-2026-31431-copy-fail-rootless-containers/",
-      "timestamp": "",
-      "rating": 4.6,
-      "priority": "HIGH VALUE",
-      "summary": "CVE-2026-31431 is a newly disclosed vulnerability related to container copy operations failing in rootless container environments, potentially leading to security bypass or privilege escalation scenarios. Rootless containers are widely adopted as a security hardening measure to reduce the blast radius of container escapes, making vulnerabilities in this space particularly impactful. The flaw appears to involve improper error handling in copy operations that could be exploited to manipulate file system state within containerized environments. Organizations using Podman, Docker rootless mode, or similar container runtimes should assess their exposure immediately. This type of vulnerability is especially relevant in CI/CD pipelines and multi-tenant Kubernetes clusters where container isolation is a primary security boundary. Patching priority should be elevated for any environment relying on rootless containers as a defense-in-depth mechanism.",
-      "signal": "Patch immediately \u2014 rootless container vulnerability undermines a key security hardening strategy used across cloud-native and DevSecOps environments."
-    },
-    {
-      "title": "Train Your Own LLM from Scratch",
-      "source": "Hacker News",
-      "url": "https://github.com/angelos-p/llm-from-scratch",
+      "url": "https://news.ycombinator.com/item?id=48023496",
       "timestamp": "",
       "rating": 3.6,
       "priority": "WORTH KNOWING",
-      "summary": "An open-source GitHub repository providing educational resources and code for training a large language model from scratch, targeting developers and ML practitioners looking to understand LLM internals. While primarily educational, this type of resource has security relevance in understanding how models are trained, which informs threat models around training data poisoning, model backdoors, and adversarial ML attacks. Security researchers can use such implementations to experiment with attack and defense techniques in a controlled environment. The availability of from-scratch LLM training code also democratizes capabilities that could be misused for fine-tuning models on malicious data at lower cost. For defenders, understanding model training mechanics is increasingly important as AI systems become targets of supply chain attacks.",
-      "signal": "Useful for AI security researchers studying training-time attack vectors and for practitioners wanting to understand LLM internals for better threat modeling."
+      "summary": "Airbyte, a well-established data integration platform with 600+ connectors, has launched Airbyte Agents, enabling AI agents to query and synthesize data across multiple heterogeneous data sources. This product bridges the gap between enterprise data silos and AI agent workflows, which is a significant operational challenge for organizations trying to deploy AI at scale. From a security perspective, enabling agents to access multiple data sources simultaneously dramatically increases the blast radius of a compromised or misbehaving agent, making access control and audit logging critical considerations. Organizations adopting this tool should carefully evaluate how credentials are managed across connectors and whether the agent context window could leak sensitive data. The product is relevant for data engineers and AI teams but introduces new data governance and security architecture questions. As AI agents gain more data access, the risk of unintended data exfiltration or manipulation grows proportionally. Security architects should review their data access policies before integrating agent-based data pipelines.",
+      "signal": "AI agents gaining broad multi-source data access raises new enterprise security and data governance challenges worth tracking."
     },
     {
-      "title": "Securing a DoD contractor: Finding a multi-tenant authorization vulnerability",
+      "title": "Quantum Key Distribution (QKD) and Quantum Cryptography (QC)",
       "source": "Hacker News",
-      "url": "https://www.strix.ai/blog/how-strix-found-zero-auth-vulnerability-dod-backed-startup",
+      "url": "https://www.nsa.gov/Cybersecurity/Quantum-Key-Distribution-QKD-and-Quantum-Cryptography-QC/",
       "timestamp": "",
-      "rating": 4.7,
+      "rating": 4.2,
       "priority": "HIGH VALUE",
-      "summary": "Strix AI details the discovery of a zero-authentication multi-tenant authorization vulnerability in a DoD-backed startup's platform, representing a critical finding in a sensitive national security supply chain context. Multi-tenant authorization flaws of this severity can allow an attacker to access any tenant's data without authentication, potentially exposing classified or sensitive defense contractor information. The disclosure highlights persistent challenges in securing SaaS platforms serving government clients, particularly around proper tenant isolation at the API and data layer. This type of vulnerability \u2014 often arising from IDOR, missing authorization checks, or flawed JWT validation \u2014 is among the most impactful in cloud-native applications. The DoD contractor context elevates the national security implications significantly beyond typical commercial breaches. Security teams in the defense industrial base (DIB) should use this as a trigger to audit their own multi-tenancy implementations and authorization logic.",
-      "signal": "High-impact real-world case study \u2014 essential reading for AppSec teams, especially those securing government-adjacent or multi-tenant SaaS platforms."
+      "summary": "This NSA resource on Quantum Key Distribution and Quantum Cryptography is significant given the agency's authoritative role in U.S. national security cryptography standards. The NSA has historically been cautious about endorsing QKD, previously noting implementation challenges and preferring post-quantum cryptography (PQC) algorithms like those standardized by NIST. Security professionals should review this page for any updated NSA guidance or position shifts on QKD adoption, as the agency's stance directly influences federal procurement and cybersecurity policy. QKD, while theoretically secure based on quantum mechanical principles, faces practical challenges including distance limitations, trusted node vulnerabilities, and high infrastructure costs. The contrast between QKD and NIST's PQC standards (FIPS 203/204/205) remains an important strategic decision point for organizations planning long-term cryptographic resilience. Any updated NSA guidance could signal policy shifts affecting defense contractors, federal agencies, and critical infrastructure operators. This is essential reading for cryptographers and security architects planning post-quantum migration strategies.",
+      "signal": "NSA guidance on QKD directly shapes federal cryptographic policy and is essential context for post-quantum migration planning."
     }
   ],
   "videos": [],
-  "lastUpdate": "2026-05-05T14:03:42.873734+00:00",
+  "lastUpdate": "2026-05-05T22:41:15.439697+00:00",
   "metadata": {
-    "totalScraped": 9,
-    "filtered": 7,
+    "totalScraped": 8,
+    "filtered": 4,
     "sources": []
   }
 }
