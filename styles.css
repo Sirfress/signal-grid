@@ -736,11 +736,6 @@ h2 {
 .search-wrapper button:hover {
     color: var(--accent-cyan);
 }
-.header-left {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
 
 .badge {
     padding: 0.15rem 0.5rem;
@@ -918,4 +913,59 @@ h2 {
         right: 1rem;
         left: 1rem;
     }
+}
+
+/* Header Search Bar - Full Width */
+.header-search-bar {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem 1.5rem 2rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+
+.search-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.search-wrapper input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 1rem 3rem 1rem 1.5rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-wrapper input:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    background: var(--bg-dark);
+}
+
+.search-wrapper input::placeholder {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}
+
+.search-wrapper button {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.search-wrapper button:hover {
+    color: var(--accent-cyan);
 }
