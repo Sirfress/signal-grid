@@ -43,28 +43,13 @@ class SignalGridScraper:
             'UCCZDt7MuC3Hzs6IH4xODLBw': 'Nahamsec',
             'UC0ArlFuFYMpEewyRBzdLHiw': 'The Cyber Mentor',
             'UCa6eh7gCkpPo5XXUDfygQQA': 'IppSec',
-            'UCSup79ak1Uof9EqQrM7o5LA': 'LiveOverflow',
             'UCeVMnSShP_Iviwkknt83cww': 'NetworkChuck',
-            
-            # Top Tech YouTubers
-            'UCBJycsmduvYEL83R_U4JriQ': 'Marques Brownlee (MKBHD)',
-            'UCRiDiVQj-EkZs50hNc5nqzw': 'Mrwhosetheboss',
-            'UCXuqSBlHAE6Xw-yeJA0Tunw': 'Linus Tech Tips',
-            'UCl2mFZoRqjw_ELax4Yisf6w': 'Louis Rossmann',
-            'UCX6OQ3DkcsbYNE6H8uQQuVA': 'MrBeast (Tech Projects)',
-            'UCzL_0nIe8B4-7ShhVPfJVgw': 'Fireship',
-            'UC2WHjPDvbE6O328n17ZGcfg': 'ForrestKnight',
-            'UCsBjURrPoezykLs9EqgamOA': 'Fireship (Dev News)',
-            'UCiT9RITQ9PW6BhXK0y2jaeg': 'Jeff Geerling (Tech/Dev)',
-            'UCW5YeuERMmlnqo4oq8vwUpg': 'The Primeagen (Dev)'
         }
         
         self.reddit_subreddits = [
             'netsec',
             'cybersecurity', 
-            #'MachineLearning',#
             'hacking',
-            'bugbounty',
             'programming'
         ]
         
@@ -182,7 +167,9 @@ class SignalGridScraper:
         """Scrape Reddit"""
         items = []
         try:
-            headers = {'User-Agent': 'SignalGrid/1.0'}
+            headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
+}
             
             for subreddit in self.reddit_subreddits:
                 try:
