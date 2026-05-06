@@ -269,7 +269,7 @@ class SignalGrid {
         if (this.currentFilter === 'saved') {
             news = news.filter(item => this.isSignalSaved(item.url));
             if (news.length === 0) {
-                container.innerHTML = '<div class="loading">No saved signals yet. Click the ⭐ to save important threats!</div>';
+                container.innerHTML = '<div class="loading">No saved signals yet. Click the ✨ to save important threats!</div>';
                 return;
             }
         }
@@ -346,7 +346,7 @@ class SignalGrid {
                 <button class="bookmark-btn ${isSaved ? 'bookmarked' : ''}" 
                         onclick='signalGrid.toggleSaveSignal("${this.escapeHtml(item.url)}", ${JSON.stringify(item.title).replace(/'/g, "&#39;")})' 
                         title="${isSaved ? 'Remove from saved' : 'Save for later'}">
-                    ${isSaved ? '⭐' : '☆'}
+                    ${isSaved ? '✨' : '☆'}
                 </button>
                 <div class="news-item-header">
                     <span class="news-source">${this.escapeHtml(item.source)}</span>
@@ -755,7 +755,7 @@ class AIAssistant {
         if (messageLower.match(/saved|bookmarked|starred/i)) {
             const savedCount = signalGrid.savedSignals.length;
             if (savedCount === 0) {
-                return "You haven't saved any signals yet. Click the ⭐ icon on any signal to save it for later!";
+                return "You haven't saved any signals yet. Click the ✨ icon on any signal to save it for later!";
             }
             return `You have ${savedCount} saved signal${savedCount === 1 ? '' : 's'}. Switch to the 'SAVED' filter to view them all!`;
         }
