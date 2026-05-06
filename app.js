@@ -4,6 +4,7 @@ class SignalGrid {
         this.data = null;
         this.currentFilter = 'all';
         this.searchQuery = '';
+        this.savedSignals = this.loadSavedSignals();
         this.init();
     }
 
@@ -15,6 +16,64 @@ class SignalGrid {
         this.updateRefreshTime();
         this.updateSystemInfo();
         this.startQuoteRotation();
+    }
+
+    // ===== BOOKMARKING SYSTEM =====
+    loadSavedSignals() {
+        try {
+            const saved = localStorage.getItem('signalGrid_saved');
+            return saved ? JSON.parse(saved) : [];
+        } catch (e) {
+            console.error('Failed to load saved signals:', e);
+            return [];
+        }
+    }
+
+    saveSavedSignals() {
+        try {
+            localStorage.setItem('signalGrid_saved', JSON.stringify(this.savedSignals));
+        } catch (e) {
+            console.error('Failed to save signals:', e);
+        }
+    }
+
+    isSignalSaved(url) {
+        return this.savedSignals.includes(url);
+    }
+
+    toggleSaveSignal(url, title) {
+        const index = this.savedSignals.indexOf(url);
+        
+        if (index > -1) {
+            // Remove from saved
+            this.savedSignals.splice(index, 1);
+            this.showToast(`Removed: ${title.substring(0, 50)}...`);
+        } else {
+            // Add to saved
+            this.savedSignals.push(url);
+            this.showToast(`⭐ Saved: ${title.substring(0, 50)}...`);
+        }
+        
+        this.saveSavedSignals();
+        this.updateMetrics();
+        this.renderContent();
+    }
+
+    showToast(message) {
+        // Remove existing toast if any
+        const existingToast = document.querySelector('.toast-notification');
+        if (existingToast) existingToast.remove();
+
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
     }
 
     startQuoteRotation() {
@@ -138,8 +197,14 @@ class SignalGrid {
         document.getElementById('signal-count').textContent = metrics.totalSignals;
         document.getElementById('critical-count').textContent = metrics.criticalCount;
         document.getElementById('watch-count').textContent = metrics.watchCount;
-        document.getElementById('source-count').textContent = metrics.sourceCount;
+        document.getElementById('source-count').textContent = `${metrics.sourceCount} (${this.savedSignals.length} saved)`;
         document.getElementById('threat-level').textContent = metrics.threatLevel;
+
+        // Update saved filter button text
+        const savedBtn = document.querySelector('.filter-btn[data-filter="saved"]');
+        if (savedBtn) {
+            savedBtn.textContent = `Saved (${this.savedSignals.length})`;
+        }
     }
 
     calculateMetrics() {
@@ -200,6 +265,15 @@ class SignalGrid {
 
         let news = this.data.news;
         
+        // Apply SAVED filter
+        if (this.currentFilter === 'saved') {
+            news = news.filter(item => this.isSignalSaved(item.url));
+            if (news.length === 0) {
+                container.innerHTML = '<div class="loading">No saved signals yet. Click the ⭐ to save important threats!</div>';
+                return;
+            }
+        }
+        
         // Apply search filter
         if (this.searchQuery) {
             news = news.filter(item => 
@@ -243,7 +317,7 @@ class SignalGrid {
 
         let videos = this.data.videos;
 
-        if (this.currentFilter === 'news') {
+        if (this.currentFilter === 'news' || this.currentFilter === 'saved') {
             container.innerHTML = '<div class="loading">Switch to "All" to see videos</div>';
             return;
         } else if (this.currentFilter === 'videos') {
@@ -265,9 +339,15 @@ class SignalGrid {
         const timeAgo = this.formatTimeAgo(item.timestamp);
         const ratingClass = item.rating >= 4.5 ? 'high-value' : '';
         const isNew = this.isNewItem(item.timestamp);
+        const isSaved = this.isSignalSaved(item.url);
         
         return `
-            <article class="news-item" data-rating="${item.rating}">
+            <article class="news-item ${isSaved ? 'saved-item' : ''}" data-rating="${item.rating}">
+                <button class="bookmark-btn ${isSaved ? 'bookmarked' : ''}" 
+                        onclick='signalGrid.toggleSaveSignal("${this.escapeHtml(item.url)}", ${JSON.stringify(item.title).replace(/'/g, "&#39;")})' 
+                        title="${isSaved ? 'Remove from saved' : 'Save for later'}">
+                    ${isSaved ? '⭐' : '☆'}
+                </button>
                 <div class="news-item-header">
                     <span class="news-source">${this.escapeHtml(item.source)}</span>
                     <div class="news-meta">
@@ -435,18 +515,7 @@ class SignalGrid {
 
     getDemoData() {
         return {
-            news: [
-                {
-                    title: "Android 17 Blocks Non-Accessibility Apps from Accessibility API to Prevent Malware Abuse",
-                    source: "THE HACKER NEWS",
-                    url: "#",
-                    rating: 4.0,
-                    priority: "HIGH VALUE",
-                    summary: "Google is testing a new security feature as part of Android Advanced Protection Mode (AAPM) that prevents certain kinds of apps from using the accessibility services API.",
-                    signal: "Useful trend signal, but not necessarily something that requires immediate prioritization itself.",
-                    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString()
-                }
-            ],
+            news: [],
             videos: [],
             lastUpdate: new Date().toISOString()
         };
@@ -483,6 +552,7 @@ class AIAssistant {
     constructor() {
         this.isOpen = false;
         this.messages = [];
+        this.knowledgeBase = this.buildKnowledgeBase();
         this.init();
     }
 
@@ -506,6 +576,71 @@ class AIAssistant {
                 this.sendMessage();
             }
         });
+    }
+
+    buildKnowledgeBase() {
+        return {
+            'zero-day': {
+                keywords: ['zero-day', '0-day', 'zero day', '0day'],
+                response: "A zero-day vulnerability is a security flaw that's unknown to the software vendor. Attackers can exploit it before a patch exists, making it extremely dangerous. These vulnerabilities are highly valuable on black markets. Check the signals for any recent zero-day discoveries - they require immediate attention!"
+            },
+            'phishing': {
+                keywords: ['phishing', 'phish', 'spear phishing', 'email attack'],
+                response: "Phishing is a social engineering attack where attackers impersonate trusted entities to steal credentials, install malware, or trick victims into transferring money. Common signs: urgent language, suspicious sender addresses, unexpected attachments, mismatched URLs. Always verify sender authenticity before clicking links or downloading files. Modern phishing uses AI to craft convincing messages at scale."
+            },
+            'ransomware': {
+                keywords: ['ransomware', 'ransom', 'crypto locker', 'file encryption'],
+                response: "Ransomware encrypts your files and demands payment (usually in cryptocurrency) for decryption. Prevention strategies: maintain offline backups, keep software updated, use email filtering, implement network segmentation, deploy EDR solutions. If infected: isolate the system immediately, don't pay (it funds more attacks), report to authorities, restore from backups. Recent trends show ransomware groups now exfiltrate data before encryption for double extortion."
+            },
+            'malware': {
+                keywords: ['malware', 'trojan', 'virus', 'worm', 'rootkit', 'backdoor'],
+                response: "Malware is malicious software designed to damage, exploit, or gain unauthorized access to systems. Types include: viruses (self-replicating), trojans (disguised as legitimate software), worms (spread across networks), rootkits (hide deep in OS), backdoors (remote access), spyware (data theft). Detection requires behavior analysis, signature-based scanning, and monitoring for anomalous network traffic. Modern malware often uses polymorphic code to evade detection."
+            },
+            'supply chain': {
+                keywords: ['supply chain', 'supply-chain', 'third party', 'vendor risk'],
+                response: "Supply chain attacks compromise software or hardware before it reaches end users by targeting vendors, developers, or distribution channels. Famous examples: SolarWinds (2020), 3CX (2023), DAEMON Tools (recent). These attacks are devastating because they exploit trust relationships and can affect thousands of organizations simultaneously. Mitigation: verify software signatures, monitor vendor security posture, implement zero-trust architecture, use software bill of materials (SBOM) for visibility."
+            },
+            'exploit': {
+                keywords: ['exploit', 'exploitation', 'weaponized', 'poc', 'proof of concept'],
+                response: "An exploit is code that takes advantage of a vulnerability to compromise a system. Exploits can be: remote (over network) or local (requires system access), pre-auth (no credentials needed) or post-auth. When security researchers publish Proof of Concept (PoC) exploits, attackers weaponize them within hours. Critical exploits often target: authentication bypass, remote code execution (RCE), privilege escalation. Prioritize patching when active exploits exist in the wild."
+            },
+            'patch': {
+                keywords: ['patch', 'update', 'security update', 'hotfix', 'emergency patch'],
+                response: "Security patches fix vulnerabilities in software. Best practices: test patches in non-production first, prioritize based on exploitability and exposure, automate patching where possible, maintain patch management SLAs. 'Patch Tuesday' is Microsoft's monthly update cycle. Emergency patches for actively exploited zero-days should be deployed immediately. Virtual patching (via WAF/IPS) can provide temporary protection while testing patches."
+            },
+            'breach': {
+                keywords: ['breach', 'data breach', 'compromise', 'leaked', 'exposed'],
+                response: "A data breach is unauthorized access to sensitive information. Common causes: weak credentials, unpatched vulnerabilities, social engineering, misconfigured storage. Breach response: contain the incident, assess scope, notify affected parties, preserve evidence, conduct forensics, improve defenses. Legal requirements like GDPR mandate breach notification within 72 hours. Breached credentials often appear on dark web markets and paste sites."
+            },
+            'vulnerability': {
+                keywords: ['vulnerability', 'cve', 'vuln', 'security flaw', 'weakness'],
+                response: "A vulnerability is a weakness in software, hardware, or processes that can be exploited. Measured by CVSS score (0-10, with 10 being critical). CVE (Common Vulnerabilities and Exposures) is the standard naming system. Vulnerability management cycle: discovery → assessment → prioritization → remediation → verification. Not all vulnerabilities are equally dangerous - consider exploitability, asset criticality, and exposure when prioritizing fixes."
+            },
+            'threat intelligence': {
+                keywords: ['threat intel', 'ioc', 'indicators', 'ttp', 'tactics'],
+                response: "Threat intelligence is evidence-based knowledge about adversaries, their tactics, techniques, and procedures (TTPs). Types: strategic (high-level trends), operational (campaign details), tactical (IOCs like IPs/hashes). Effective threat intel answers: who (threat actor), what (their goals), when (timing), where (targets), why (motivation), how (attack methods). Use threat intel to prioritize defenses, tune detection rules, and inform incident response. Signal Grid provides curated threat intelligence from multiple sources."
+            },
+            'password': {
+                keywords: ['password', 'credential', 'authentication', 'login', '2fa', 'mfa'],
+                response: "Password security fundamentals: use unique passwords for each account, minimum 12 characters with complexity, avoid common patterns, enable MFA/2FA everywhere possible, use a password manager (Bitwarden, 1Password), rotate credentials after breaches. Multi-factor authentication (MFA) adds layers: something you know (password) + something you have (phone/token) + something you are (biometric). Passkeys (FIDO2/WebAuthn) are the future - phishing-resistant and passwordless."
+            },
+            'firewall': {
+                keywords: ['firewall', 'waf', 'web application firewall', 'network security'],
+                response: "Firewalls control network traffic based on security rules. Types: traditional firewalls (stateful packet inspection), next-gen firewalls (NGFW: deep packet inspection, IPS, app awareness), web application firewalls (WAF: HTTP/S protection). Best practices: default deny, segment networks, log all blocked traffic, update rules regularly. Cloud firewalls and zero-trust network access (ZTNA) are replacing traditional perimeter-based approaches."
+            },
+            'apt': {
+                keywords: ['apt', 'advanced persistent threat', 'nation state', 'targeted attack'],
+                response: "Advanced Persistent Threats (APTs) are sophisticated, long-term cyber operations typically conducted by nation-states or well-funded groups. Characteristics: stealthy, persistent (maintain access for months/years), multi-stage attacks, custom malware, targeted. APTs use: spear phishing, zero-days, living-off-the-land techniques, supply chain attacks. Defense requires: threat hunting, behavioral detection, network segmentation, privileged access management, incident response planning."
+            },
+            'encryption': {
+                keywords: ['encryption', 'decrypt', 'aes', 'tls', 'ssl', 'cryptography'],
+                response: "Encryption converts data into unreadable format without the decryption key. Types: symmetric (AES: same key for encryption/decryption, fast) and asymmetric (RSA: public/private key pairs, slower). Use cases: data at rest (disk encryption), data in transit (TLS/HTTPS), end-to-end encryption (Signal, WhatsApp). AES-256 is military-grade and effectively unbreakable. TLS 1.3 is the current standard for secure web communications. Quantum computing may threaten current encryption in the future."
+            },
+            'ddos': {
+                keywords: ['ddos', 'dos', 'denial of service', 'amplification', 'botnet'],
+                response: "DDoS (Distributed Denial of Service) attacks overwhelm systems with traffic from multiple sources, making services unavailable. Common types: volumetric (bandwidth saturation), protocol (state table exhaustion), application layer (HTTP floods). Amplification attacks abuse public services (DNS, NTP) to magnify traffic. Mitigation: rate limiting, traffic filtering, CDN/DDoS protection services (Cloudflare, Akamai), over-provisioning capacity, blackhole routing. Large DDoS attacks can exceed 1 Tbps."
+            }
+        };
     }
 
     togglePanel() {
@@ -574,7 +709,7 @@ class AIAssistant {
         const typingDiv = document.createElement('div');
         typingDiv.id = 'typing-indicator';
         typingDiv.className = 'ai-message ai-message-assistant ai-typing';
-        typingDiv.innerHTML = '<strong>AI:</strong> Thinking...';
+        typingDiv.innerHTML = '<strong>AI:</strong> Analyzing...';
         messagesContainer.appendChild(typingDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
@@ -585,51 +720,67 @@ class AIAssistant {
     }
 
     async getAIResponse(userMessage) {
-        // First, check if it's a search query
-        const searchMatch = userMessage.match(/search|find|show me|what.*about/i);
+        const messageLower = userMessage.toLowerCase();
         
-        if (searchMatch && signalGrid && signalGrid.data) {
-            // Search through signals
+        // 1. Check for search/find queries
+        if (messageLower.match(/search|find|show me|look for|what.*about/i)) {
             const results = this.searchSignals(userMessage);
             if (results.length > 0) {
-                return `I found ${results.length} signals related to your query:\n\n${results.slice(0, 3).map(r => `• ${r.title} (${r.rating}/5.0)`).join('\n')}\n\nWould you like me to explain any of these?`;
+                return `I found ${results.length} signals related to your query:\n\n${results.slice(0, 3).map(r => `• ${r.title.substring(0, 80)}... (${r.rating}/5.0)`).join('\n\n')}\n\nWould you like me to explain any of these?`;
             }
         }
-
-        // For general questions, provide helpful responses
-        // In a real implementation, this would call Claude API
-        // For now, we'll provide predefined helpful responses
         
-        const keywords = userMessage.toLowerCase();
-        
-        if (keywords.includes('zero-day') || keywords.includes('0-day')) {
-            return "A zero-day vulnerability is a security flaw that's unknown to the software vendor. Attackers can exploit it before a patch exists. These are highly valuable and dangerous. Check the signals for any recent zero-day discoveries!";
+        // 2. Check for critical/must-know queries
+        if (messageLower.match(/critical|important|must.*know|priority|urgent|top/i)) {
+            const critical = signalGrid.data.news.filter(n => n.rating >= 4.5).slice(0, 5);
+            if (critical.length > 0) {
+                return `🚨 There are ${critical.length} critical signals (≥4.5 rating) right now:\n\n${critical.map((n, i) => `${i+1}. ${n.title.substring(0, 70)}... (${n.rating}/5.0)`).join('\n\n')}\n\nCheck the "Must Know" section for full details!`;
+            }
+            return "Currently no critical-rated signals. All threats are at manageable priority levels.";
         }
         
-        if (keywords.includes('phishing')) {
-            return "Phishing is a social engineering attack where attackers impersonate trusted entities to steal credentials or data. Common signs: urgent language, suspicious links, unexpected attachments. Always verify sender authenticity!";
+        // 3. Check knowledge base for security concepts
+        for (const [topic, data] of Object.entries(this.knowledgeBase)) {
+            if (data.keywords.some(keyword => messageLower.includes(keyword))) {
+                return data.response;
+            }
         }
         
-        if (keywords.includes('ransomware')) {
-            return "Ransomware encrypts your files and demands payment for decryption. Prevention: regular backups, updated software, email vigilance, network segmentation. Never pay the ransom - it funds more attacks!";
+        // 4. Check for help/capabilities queries
+        if (messageLower.match(/help|what can you|how do|capabilities/i)) {
+            return "I can help you with:\n\n🔍 Search signals: 'Find signals about zero-day exploits'\n📊 Get critical alerts: 'Show me the most important threats'\n📚 Explain concepts: 'What is ransomware?' or 'Explain supply chain attacks'\n🎯 Security topics I cover: zero-days, phishing, ransomware, malware, supply chains, exploits, patches, breaches, vulnerabilities, threat intelligence, APTs, encryption, DDoS, and more!\n\nTry asking me anything about cybersecurity!";
         }
         
-        if (keywords.includes('critical') || keywords.includes('important')) {
-            const critical = signalGrid.data.news.filter(n => n.rating >= 4.5);
-            return `There are ${critical.length} critical signals (≥4.5 rating) right now. Check the "Must Know" section to see them!`;
+        // 5. Saved signals query
+        if (messageLower.match(/saved|bookmarked|starred/i)) {
+            const savedCount = signalGrid.savedSignals.length;
+            if (savedCount === 0) {
+                return "You haven't saved any signals yet. Click the ⭐ icon on any signal to save it for later!";
+            }
+            return `You have ${savedCount} saved signal${savedCount === 1 ? '' : 's'}. Switch to the 'SAVED' filter to view them all!`;
         }
         
-        if (keywords.includes('search') || keywords.includes('find')) {
-            return "You can use the search bar at the top to find specific signals! Try searching for keywords like 'exploit', 'AI', 'breach', or 'vulnerability'.";
+        // 6. Source-specific queries
+        if (messageLower.match(/sources?|where.*from|feeds?/i)) {
+            const sources = signalGrid.getUniqueSources();
+            return `Signal Grid monitors ${sources.length} active sources:\n\n${sources.slice(0, 8).join(', ')}\n\nWe aggregate threat intelligence from Hacker News, Reddit cybersecurity communities, and top security YouTube channels, then Claude AI analyzes and rates each signal.`;
         }
         
-        return "I can help you:\n• Search through signals\n• Explain security concepts\n• Find critical vulnerabilities\n• Answer cybersecurity questions\n\nTry asking: 'What are the most critical signals?' or 'Explain zero-day exploits'";
+        // 7. Fallback - suggest search
+        return `I'm not sure about that specific query. Try:\n\n• Asking about security concepts (zero-days, phishing, ransomware, etc.)\n• Searching signals: "Find signals about [topic]"\n• Getting critical alerts: "Show me urgent threats"\n• Using the search bar at the top to find specific signals\n\nWhat would you like to know?`;
     }
 
     searchSignals(query) {
         if (!signalGrid || !signalGrid.data) return [];
         
-        const keywords = query.toLowerCase().split(' ').filter(w => w.length > 3);
+        const keywords = query.toLowerCase()
+            .replace(/search|find|show me|look for|what.*about|signals?|news/gi, '')
+            .trim()
+            .split(/\s+/)
+            .filter(w => w.length > 3);
+        
+        if (keywords.length === 0) return [];
+        
         const allSignals = [...signalGrid.data.news, ...signalGrid.data.videos];
         
         return allSignals.filter(signal => {

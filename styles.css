@@ -921,3 +921,89 @@ h2 {
 .search-wrapper button:hover {
     color: var(--accent-cyan);
 }
+
+/* ===== BOOKMARKING STYLES ===== */
+.bookmark-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-dim);
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.bookmark-btn:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    transform: scale(1.1);
+}
+
+.bookmark-btn.bookmarked {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    background: rgba(0, 255, 255, 0.1);
+    animation: star-pulse 2s infinite;
+}
+
+@keyframes star-pulse {
+    0%, 100% { 
+        box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+    50% { 
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+    }
+}
+
+.saved-item {
+    border-color: var(--accent-cyan);
+    background: rgba(0, 255, 255, 0.05);
+}
+
+/* Toast Notification */
+.toast-notification {
+    position: fixed;
+    bottom: 6rem;
+    right: 2rem;
+    background: var(--bg-card);
+    border: 2px solid var(--accent-cyan);
+    color: var(--text-primary);
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(0, 255, 255, 0.3);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    z-index: 10000;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    max-width: 400px;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+    .toast-notification {
+        right: 1rem;
+        left: 1rem;
+        max-width: calc(100vw - 2rem);
+    }
+    
+    .bookmark-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+}
