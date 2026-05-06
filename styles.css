@@ -925,48 +925,51 @@ h2 {
 /* ===== BOOKMARKING STYLES ===== */
 .bookmark-btn {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0.75rem;
+    right: 0.75rem;
     background: transparent;
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-color);
     color: var(--text-dim);
-    font-size: 1.5rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 4px;
+    font-size: 1.1rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 3px;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
+    opacity: 0.6;
 }
 
 .bookmark-btn:hover {
     border-color: var(--accent-cyan);
     color: var(--accent-cyan);
-    transform: scale(1.1);
+    transform: scale(1.05);
+    opacity: 1;
 }
 
 .bookmark-btn.bookmarked {
     border-color: var(--accent-cyan);
     color: var(--accent-cyan);
     background: rgba(0, 255, 255, 0.1);
+    opacity: 1;
     animation: star-pulse 2s infinite;
 }
 
 @keyframes star-pulse {
     0%, 100% { 
-        box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+        box-shadow: 0 0 3px rgba(0, 255, 255, 0.3);
     }
     50% { 
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
     }
 }
 
 .saved-item {
     border-color: var(--accent-cyan);
-    background: rgba(0, 255, 255, 0.05);
+    background: rgba(0, 255, 255, 0.03);
 }
 
 /* Toast Notification */
@@ -1002,8 +1005,10 @@ h2 {
     }
     
     .bookmark-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 1.2rem;
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
+        top: 0.5rem;
+        right: 0.5rem;
     }
 }
