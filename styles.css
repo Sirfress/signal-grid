@@ -926,7 +926,7 @@ h2 {
 .bookmark-btn {
     position: absolute;
     top: 0.75rem;
-    right: 0.75rem;
+    left: 0.75rem; 
     background: transparent;
     border: 1px solid var(--border-color);
     color: var(--text-dim);
