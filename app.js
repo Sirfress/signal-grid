@@ -51,7 +51,7 @@ class SignalGrid {
         } else {
             // Add to saved
             this.savedSignals.push(url);
-            this.showToast(`⭐ Saved: ${title.substring(0, 50)}...`);
+            this.showToast(`✨ Saved: ${title.substring(0, 50)}...`);
         }
         
         this.saveSavedSignals();
