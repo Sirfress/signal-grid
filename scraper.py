@@ -104,9 +104,9 @@ class SignalGridScraper:
         processed_news = self.process_news_with_claude(news_items)
         processed_videos = self.process_videos_with_claude(videos)
         
-        # Filter by rating (≥3.5)
-        results['news'] = [n for n in processed_news if n['rating'] >= 3.5]
-        results['videos'] = [v for v in processed_videos if v['rating'] >= 3.5]
+        # Filter by rating (≥3.5) - convert to float to handle string ratings
+        results['news'] = [n for n in processed_news if float(n.get('rating', 0)) >= 3.5]
+        results['videos'] = [v for v in processed_videos if float(v.get('rating', 0)) >= 3.5]
         
         results['metadata']['totalScraped'] = len(news_items) + len(videos)
         results['metadata']['filtered'] = len(results['news']) + len(results['videos'])
@@ -123,16 +123,35 @@ class SignalGridScraper:
         """Filter items to only include recent ones (last 48 hours)"""
         cutoff_time = datetime.now(timezone.utc) - timedelta(hours=self.max_age_hours)
         recent_items = []
+        old_count = 0
+        
+        print(f"   🕒 Filtering for items after: {cutoff_time.isoformat()}")
         
         for item in items:
             try:
-                item_time = datetime.fromisoformat(item['timestamp'].replace('Z', '+00:00'))
+                timestamp_str = item.get('timestamp', '')
+                if not timestamp_str:
+                    print(f"      ⚠️  No timestamp for: {item.get('title', 'Unknown')[:50]}")
+                    recent_items.append(item)  # Include items without timestamps
+                    continue
+                
+                # Parse timestamp
+                item_time = datetime.fromisoformat(timestamp_str.replace('Z', '+00:00'))
+                
+                # Debug: Show timestamp
+                days_old = (datetime.now(timezone.utc) - item_time).days
+                
                 if item_time > cutoff_time:
                     recent_items.append(item)
-            except:
-                # If timestamp parsing fails, include the item anyway
-                recent_items.append(item)
+                else:
+                    old_count += 1
+                    if old_count <= 3:  # Only show first 3 old items
+                        print(f"      ❌ Filtered out ({days_old} days old): {item.get('title', '')[:50]}")
+            except Exception as e:
+                print(f"      ⚠️  Error parsing timestamp: {e}")
+                recent_items.append(item)  # Include on error
         
+        print(f"   ✅ Kept {len(recent_items)} recent items, filtered out {old_count} old items")
         return recent_items
     
     def scrape_hackernews(self) -> List[Dict]:
