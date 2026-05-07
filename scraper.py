@@ -37,13 +37,25 @@ class SignalGridScraper:
         
         # Target creators
         self.youtube_channels = {
-            # Cybersecurity
+            # Current cybersecurity channels (keep these)
             'UC0vBXGSyV14uvJ4hECDOl0Q': 'David Bombal',
             'UCVeW9qkBjo3zosnqUbG7CFw': 'John Hammond',
             'UCCZDt7MuC3Hzs6IH4xODLBw': 'Nahamsec',
             'UC0ArlFuFYMpEewyRBzdLHiw': 'The Cyber Mentor',
             'UCa6eh7gCkpPo5XXUDfygQQA': 'IppSec',
             'UCeVMnSShP_Iviwkknt83cww': 'NetworkChuck',
+            
+            # ADD THESE - More cybersecurity
+            'UCSup79ak1Uof9EqQrM7o5LA': 'LiveOverflow',
+            'UC0ZTPkdxlAKf-V33tqXwi3Q': 'HackerSploit',
+            'UCgTNupxATBfWmfehv21ym-g': 'NullByte',
+            'UC286ntgASMskhPIJQebJVvA': 'zSecurity',
+            'UCVeW9qkBjo3zosnqUbG7CFw': 'STÖK',
+            
+            # Tech/Security News (post more frequently)
+            'UCXuqSBlHAE6Xw-yeJA0Tunw': 'Linus Tech Tips',
+            'UCl2mFZoRqjw_ELax4Yisf6w': 'Louis Rossmann',
+            'UCzL_0nIe8B4-7ShhVPfJVgw': 'Fireship',
         }
         
         self.reddit_subreddits = [
@@ -220,12 +232,16 @@ class SignalGridScraper:
             print("   ⚠️  No YouTube API key found, skipping...")
             return videos
         
+        print(f"   📺 Checking {len(self.youtube_channels)} YouTube channels...")
+        
         try:
-            # Get videos from last 48 hours
-            published_after = (datetime.now(timezone.utc) - timedelta(hours=48)).isoformat()
+            # Get videos from last 7 days (cybersecurity YouTubers don't post daily)
+            published_after = (datetime.now(timezone.utc) - timedelta(hours=168)).isoformat()
             
             for channel_id, creator_name in self.youtube_channels.items():
                 try:
+                    print(f"      → Checking {creator_name}...")
+                    
                     response = requests.get(
                         'https://www.googleapis.com/youtube/v3/search',
                         params={
@@ -237,15 +253,20 @@ class SignalGridScraper:
                             'publishedAfter': published_after,
                             'type': 'video'
                         },
-                        timeout=10
+                        timeout=30
                     )
                     
+                    print(f"         API Status: {response.status_code}")
+                    
                     if response.status_code != 200:
+                        print(f"         ⚠️  API Error: {response.text[:200]}")
                         continue
                     
                     data = response.json()
+                    items = data.get('items', [])
+                    print(f"         Found {len(items)} videos in last 7 days")
                     
-                    for item in data.get('items', []):
+                    for item in items:
                         snippet = item['snippet']
                         video_id = item['id']['videoId']
                         
@@ -263,13 +284,16 @@ class SignalGridScraper:
                         })
                     
                     time.sleep(1)  # Rate limiting
+                    
                 except Exception as e:
+                    print(f"         ⚠️  Error with {creator_name}: {e}")
                     continue
                     
         except Exception as e:
             print(f"   ⚠️  Error scraping YouTube: {e}")
         
         return videos
+    
     
     def _get_video_transcript(self, video_id: str) -> str:
         """Get video transcript using youtube_transcript_api"""
