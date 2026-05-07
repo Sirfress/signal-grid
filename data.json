@@ -1,24 +1,24 @@
 {
   "news": [
     {
-      "title": "Agents can now create Cloudflare accounts, buy domains, and deploy",
+      "title": "ProgramBench: Can Language Models Rebuild Programs from Scratch?",
       "source": "Hacker News",
-      "url": "https://blog.cloudflare.com/agents-stripe-projects/",
+      "url": "https://arxiv.org/abs/2605.03546",
       "timestamp": "",
-      "rating": 4.2,
-      "priority": "HIGH VALUE",
-      "summary": "Cloudflare has integrated agentic AI capabilities allowing autonomous agents to create accounts, purchase domains, and deploy infrastructure through integrations with Stripe and other services. This represents a significant shift in agentic AI capabilities where AI systems can now autonomously manage real-world financial transactions and infrastructure provisioning. From a security perspective, this raises serious concerns about abuse potential\u2014malicious actors could leverage compromised or rogue agents to spin up infrastructure for phishing, C2, or spam at scale. The ability of AI agents to autonomously execute financial transactions and create internet-facing infrastructure lowers the barrier for automated malicious infrastructure deployment. Security teams should monitor for policy and authentication controls around agentic access to such APIs. This also sets a precedent for other providers to offer similar agent-accessible services.",
-      "signal": "AI agents gaining autonomous financial and infrastructure provisioning capabilities creates new attack surface and abuse vectors at scale."
+      "rating": 3.8,
+      "priority": "WORTH KNOWING",
+      "summary": "ProgramBench introduces a benchmark evaluating whether large language models can reconstruct complete programs from scratch given only a high-level specification or description. This tests deeper code synthesis and reasoning capabilities beyond typical code completion tasks. Results likely reveal gaps in LLM reasoning about program structure, logic, and correctness at scale. For security professionals, this has implications for AI-assisted vulnerability research and exploit development, as stronger code synthesis models could accelerate both offensive tooling and defensive code analysis. It also touches on the reliability of AI coding assistants used in production environments. Understanding LLM coding limitations is increasingly important as these tools are integrated into secure development pipelines.",
+      "signal": "Benchmark revealing LLM code synthesis limits matters for AI-assisted security tooling and secure development pipeline risks."
     },
     {
-      "title": "DNSSEC disruption affecting .de domains \u2013 Resolved",
-      "source": "Hacker News",
-      "url": "https://status.denic.de/pages/incident/592577eab611ce1e0d00046f/69fa60ef9d12f5057a974f38",
+      "title": "Quacc++: Automated Open Source Vulnerability Discovery",
+      "source": "r/netsec",
+      "url": "https://www.somersetrecon.com/blog/2026/4/27/quacc-automated-open-source-vulnerability-discovery",
       "timestamp": "",
-      "rating": 3.5,
-      "priority": "WORTH KNOWING",
-      "summary": "A DNSSEC disruption affected .de top-level domains managed by DENIC, causing resolution failures for potentially millions of German domains. DNSSEC disruptions at the TLD level can cause widespread service outages as validating resolvers reject responses with invalid or missing signatures. The incident has been marked as resolved, but it highlights the fragility of DNSSEC infrastructure at scale and the cascading impact a misconfiguration or signing failure at the registry level can have. Organizations relying on .de domains should review their monitoring for DNS resolution failures. This is a recurring class of incident across multiple TLDs globally and serves as a reminder that DNSSEC, while improving security, introduces operational complexity and single points of failure.",
-      "signal": "TLD-level DNSSEC failures cause widespread outages; important for operators of .de domains and DNS infrastructure teams."
+      "rating": 4.4,
+      "priority": "HIGH VALUE",
+      "summary": "Quacc++ is a new automated vulnerability discovery tool targeting open-source codebases, extending prior work with likely improvements in static analysis, pattern matching, or fuzzing automation. Automated vulnerability discovery tools are critical force multipliers for both offensive security researchers and defenders conducting supply chain risk assessments. The open-source focus is particularly relevant given the ongoing threat landscape around supply chain attacks. Security teams should evaluate this tool for integration into their OSS dependency review pipelines. This represents meaningful progress in reducing the manual effort required to identify CVE-worthy flaws in widely deployed libraries. Organizations heavily dependent on open-source components should be aware of both the defensive utility and the risk that adversaries may use similar tooling to find exploitable bugs first.",
+      "signal": "Automated OSS vuln discovery tooling is a direct force multiplier for both red teams and supply chain security programs."
     },
     {
       "title": "pyghidra-mcp Meets Ghidra GUI: Drive Project-Wide RE with Local AI",
@@ -27,38 +27,38 @@
       "timestamp": "",
       "rating": 4.3,
       "priority": "HIGH VALUE",
-      "summary": "This post details integrating pyghidra-mcp with the Ghidra reverse engineering GUI to enable project-wide automated reverse engineering driven by local AI models via the Model Context Protocol (MCP). This represents a meaningful advancement in AI-assisted malware analysis and binary reverse engineering workflows, allowing analysts to automate tedious RE tasks at scale without sending sensitive binaries to cloud AI services. The local AI approach addresses privacy and operational security concerns for analysts working with sensitive or classified samples. By leveraging MCP, the tool can orchestrate complex multi-step RE tasks across entire Ghidra projects rather than single functions. This lowers the skill floor for reverse engineering while dramatically increasing throughput for experienced analysts. Security teams and threat intelligence units should evaluate this for integration into their malware analysis pipelines.",
-      "signal": "Practical AI-assisted reverse engineering tooling that keeps sensitive binaries local\u2014directly actionable for malware analysts and threat researchers."
+      "summary": "This post details integrating pyghidra-mcp with the Ghidra GUI to enable AI-assisted, project-wide reverse engineering using local language models via the Model Context Protocol (MCP). This approach allows analysts to query and drive Ghidra's analysis programmatically through a local AI, significantly accelerating binary analysis workflows without sending sensitive binaries to cloud AI services. For malware analysts and vulnerability researchers, this is a meaningful productivity improvement that keeps sensitive intellectual property local. The MCP integration pattern is increasingly being adopted across security tooling and represents a broader trend of AI augmentation in RE workflows. Security teams should evaluate this for internal RE pipelines, particularly for analyzing proprietary or classified binaries where cloud AI is prohibited. The local-AI constraint also sidesteps data leakage concerns present in cloud-based AI coding assistants.",
+      "signal": "AI-augmented Ghidra RE with local models is a practical, privacy-preserving workflow improvement for malware and vuln researchers."
     },
     {
       "title": "Bleeding Llama: Critical Unauthenticated Memory Leak in Ollama (CVE-2026\u20137482)",
       "source": "r/netsec",
       "url": "https://www.cyera.com/research/bleeding-llama-critical-unauthenticated-memory-leak-in-ollama",
       "timestamp": "",
-      "rating": 4.8,
+      "rating": 4.9,
       "priority": "HIGH VALUE",
-      "summary": "Cyera has disclosed CVE-2026-7482, a critical unauthenticated memory leak vulnerability in Ollama, a widely used local LLM inference server. The vulnerability allows remote attackers without authentication to leak memory contents from the Ollama process, potentially exposing model weights, system prompts, conversation history, API keys stored in memory, or other sensitive data. Ollama is frequently deployed by developers and organizations running local AI inference, often with default configurations that may expose the API to broader network segments. Because Ollama typically runs without authentication by default, this vulnerability has a very low exploitation barrier. Organizations should immediately audit Ollama deployments for network exposure, apply available patches, and implement network-level controls restricting access. This is particularly critical for any Ollama instances exposed to the internet or multi-tenant networks.",
-      "signal": "Critical unauthenticated RCE-adjacent memory leak in widely deployed local AI inference software with low exploitation complexity\u2014patch immediately."
+      "summary": "CVE-2026-7482 is a critical unauthenticated memory leak vulnerability in Ollama, a widely used local LLM inference server. An unauthenticated attacker with network access to the Ollama API can trigger memory disclosure, potentially exposing sensitive data including model weights, conversation context, or host memory contents. Ollama is frequently deployed in enterprise AI development environments and developer workstations, often without network segmentation or authentication. The unauthenticated nature of this vulnerability makes it trivially exploitable by anyone with network access, which is particularly dangerous given that Ollama's default configuration does not enforce authentication. Organizations running Ollama in shared or networked environments should patch immediately and audit network exposure. This is a high-priority finding for any enterprise or team that has deployed Ollama as part of an AI development stack.",
+      "signal": "Critical unauthenticated memory leak in widely deployed local LLM server requires immediate patching and network access review."
     },
     {
       "title": "Vulnerability Garden",
       "source": "r/netsec",
       "url": "https://vulnerability.garden",
       "timestamp": "",
-      "rating": 3.6,
+      "rating": 3.5,
       "priority": "WORTH KNOWING",
-      "summary": "Vulnerability Garden appears to be a new or notable vulnerability tracking and visualization resource for the security community. Vulnerability aggregation and visualization platforms can be valuable for security teams to prioritize patching and track emerging threats beyond what NVD provides. Without more detail on its data sources, coverage, and unique features compared to existing tools like NVD, VulnDB, or OSV, it is difficult to fully assess its value. Security teams should evaluate it as a supplementary resource for vulnerability intelligence. The utility will depend on how current and comprehensive its data is and whether it offers unique filtering or contextualization capabilities.",
-      "signal": "Potentially useful vulnerability intelligence resource worth evaluating as a supplementary tool for security teams."
+      "summary": "Vulnerability Garden appears to be a curated resource or database for vulnerability information, potentially offering a novel interface or categorization approach for CVEs and security advisories. Without visible content details, the exact feature set is unclear, but such tools can be valuable for threat intelligence teams, pentesters, and vulnerability management programs. If it provides unique aggregation, search, or visualization capabilities beyond NVD or existing databases, it could become a useful bookmarked resource. Security professionals should evaluate it against their existing vuln management workflows.",
+      "signal": "Potentially useful vulnerability aggregation resource worth bookmarking for threat intel and vuln management workflows."
     },
     {
       "title": "Major AI Clients Shipping With Broken OAuth Implementations",
       "source": "r/netsec",
       "url": "https://www.redcaller.com/docs/references/mcp-client-oauth-refresh-token-support",
       "timestamp": "",
-      "rating": 4.6,
+      "rating": 4.7,
       "priority": "HIGH VALUE",
-      "summary": "A significant OAuth implementation flaw has been identified across major AI clients including Claude Code, Claude Desktop, Cursor, LibreChat, and Amazon Q CLI, where these tools fail to implement the OAuth refresh token flow. The absence of refresh token support forces service operators and developers to issue long-lived access tokens, which dramatically increases the blast radius of any token compromise since tokens cannot be rotated or expired in a standard, automated fashion. This represents a serious security regression introduced by the rapid adoption of MCP (Model Context Protocol) and AI tooling without proper security review of authentication standards. Long-lived tokens in AI clients that often have broad permissions to access filesystems, code repositories, and external APIs create high-value targets for attackers. Security teams should audit token lifetimes for any AI tooling in their environments and advocate for proper OAuth implementation from vendors. This is particularly concerning given the privileged access these AI coding assistants typically have to sensitive development environments.",
-      "signal": "Systemic OAuth implementation failure across major AI development tools forces long-lived tokens, creating persistent credential exposure risk in widely adopted developer tooling."
+      "summary": "A significant finding reveals that major AI clients including Claude Code, Claude Desktop, Cursor, LibreChat, and Amazon Q CLI have failed to implement the OAuth refresh token flow, forcing the issuance of long-lived access tokens as a workaround. Long-lived tokens dramatically increase the blast radius of token theft, as compromised credentials remain valid indefinitely rather than expiring after short intervals. This represents a systemic security regression across the AI tooling ecosystem at a time when these clients are being rapidly adopted in enterprise environments. The broken OAuth implementation pattern suggests insufficient security review during rapid feature development cycles common in the AI industry. Enterprise security teams should audit token lifetimes for any AI tooling integrated with OAuth providers and implement compensating controls such as network monitoring and token rotation policies. This is particularly concerning for tools like Amazon Q CLI and Cursor that are used in sensitive development environments with access to proprietary codebases.",
+      "signal": "Systemic broken OAuth in widely deployed AI dev tools creates long-lived token exposure risk across enterprise AI adoption."
     },
     {
       "title": "Popular DAEMON Tools software infected \u2013 supply chain attack ongoing since April 8, 2026",
@@ -67,255 +67,236 @@
       "timestamp": "",
       "rating": 4.9,
       "priority": "HIGH VALUE",
-      "summary": "Kaspersky's Securelist has reported an active supply chain attack against DAEMON Tools, a widely used disk image mounting and virtual drive software with a large global user base. The attack has been ongoing since at least April 8, 2026, meaning potentially millions of users may have installed backdoored versions of the software. Supply chain attacks through legitimate software distribution channels are particularly dangerous because users have no reason to distrust installers obtained from official sources, and security tools may not flag signed, legitimate-appearing binaries. The backdoor's capabilities, persistence mechanisms, and C2 infrastructure details would be critical to review from the Securelist report. Organizations should immediately check for DAEMON Tools installations updated or installed after April 8, 2026, treat affected systems as potentially compromised, and conduct forensic triage. This follows a pattern of software supply chain attacks targeting widely-used utilities to maximize victim reach.",
-      "signal": "Active supply chain attack on widely-used consumer/enterprise disk software with weeks of dwell time\u2014immediate incident response and forensic triage required for any affected installations."
-    },
-    {
-      "title": "Ghosts of Encryption Past \u2013 How we Read All Your Emails in Salesforce Marketing Cloud",
-      "url": "https://slcyber.io/research-center/ghosts-of-encryption-past-salesforce-exacttarget/",
-      "source": "r/netsec",
-      "timestamp": "2026-05-05T11:05:32+00:00",
-      "text": "",
-      "rating": 4.3,
-      "priority": "CRITICAL",
-      "summary": "Analysis of Ghosts of Encryption Past \u2013 How we Read All Your Emails in Salesforce Marketing ...",
-      "signal": "Automated processing - manual review recommended"
-    },
-    {
-      "title": "HN Security - Extending Burp Suite for fun and profit \u2013 The Montoya way \u2013 Part 10",
-      "url": "https://hnsecurity.it/blog/extending-burp-suite-for-fun-and-profit-the-montoya-way-part-10/",
-      "source": "r/netsec",
-      "timestamp": "2026-05-05T12:36:21+00:00",
-      "text": "Topic of this article: Burp AI.",
-      "rating": 4.8,
-      "priority": "MEDIUM",
-      "summary": "Analysis of HN Security - Extending Burp Suite for fun and profit \u2013 The Montoya way \u2013 Part 1...",
-      "signal": "Automated processing - manual review recommended"
+      "summary": "A confirmed supply chain attack targeting DAEMON Tools, a widely-used virtual drive and disc imaging application, has been ongoing since April 8, 2026. Attackers compromised the software distribution pipeline to deliver backdoored versions to end users. Supply chain attacks of this nature are particularly dangerous because users receive malware through trusted, legitimate software update channels, bypassing many traditional defenses. The Securelist publication suggests Kaspersky researchers identified and analyzed the backdoor, lending significant credibility to the findings. DAEMON Tools has a large installed base among both consumers and enterprise users, meaning the blast radius could be substantial. Security teams should immediately audit systems for DAEMON Tools installations and cross-reference installation/update dates against the April 8 compromise date. Incident response should treat any system running DAEMON Tools updated after April 8 as potentially compromised.",
+      "signal": "Active supply chain compromise of widely-deployed software; immediate enterprise-wide audit and potential incident response required."
     },
     {
       "title": "Salesforce pentesting novel techniques- how to be an apex predator",
-      "url": "https://www.reco.ai/blog/salesforce-experience-site-pentest-apex-predator",
       "source": "r/netsec",
-      "timestamp": "2026-05-05T19:39:39+00:00",
-      "text": "In this blog post I introduced several novel techniques:    \n\n1.How to get all routes - no need to authenticate.   \n\n2. How to get methods to fuzz from pages and not just the bootstrap JS files - the vast majority of methods are in those pages and not the JS files that existing tools and guides point to.   \n\n3. How to parse \"LWC\" components and not just legacy components.   ",
-      "rating": 4.0,
-      "priority": "CRITICAL",
-      "summary": "Analysis of Salesforce pentesting novel techniques- how to be an apex predator...",
-      "signal": "Automated processing - manual review recommended"
+      "url": "https://www.reco.ai/blog/salesforce-experience-site-pentest-apex-predator",
+      "timestamp": "",
+      "rating": 4.2,
+      "priority": "HIGH VALUE",
+      "summary": "This blog post introduces multiple novel techniques for pentesting Salesforce Experience Sites, which are externally exposed Salesforce portals widely deployed in enterprise environments. Notably, the author describes a method to enumerate all available routes without authentication, which significantly lowers the barrier for reconnaissance. Additionally, the post explains how to extract Apex methods available for fuzzing from page sources rather than just the bootstrap JavaScript files, covering a much broader attack surface than existing tools address. These techniques could allow attackers or red teamers to discover and abuse misconfigured or unauthenticated Apex controller methods, a common source of data exposure in Salesforce deployments. Given how many organizations use Salesforce Experience Sites to expose sensitive customer and business data externally, these techniques have real-world offensive and defensive relevance. Security teams responsible for Salesforce environments should review their Experience Site configurations and test against these newly documented attack vectors. This is actionable intelligence for both offensive security professionals and Salesforce administrators.",
+      "signal": "Novel unauthenticated recon and fuzzing techniques against Salesforce Experience Sites expand the known attack surface for a widely deployed enterprise platform."
     },
     {
-      "title": "We get paid to break into buildings for a living. Ask us anything!",
-      "url": "https://www.reddit.com/r/cybersecurity/comments/1t4cwvj/we_get_paid_to_break_into_buildings_for_a_living/",
-      "source": "r/cybersecurity",
-      "timestamp": "2026-05-05T11:40:17+00:00",
-      "text": "My name is Paul Koblitz and I'm the Managing Director of Technical Services at TrustedSec, an end-to-end cybersecurity consulting company that's been in business for almost 14 years. My team performs professional physical penetration testing and guided physical security controls assessments. My job is to help organizations find and fix security weaknesses before real attackers do \u2014 except my attack surface isn't code or networks, it's people, doors, badges, cameras, and locks.\n\nTrustedSec team m",
-      "rating": 3.7,
-      "priority": "CRITICAL",
-      "summary": "Analysis of We get paid to break into buildings for a living. Ask us anything!...",
-      "signal": "Automated processing - manual review recommended"
+      "title": "Ghosts of Encryption Past \u2013 How we Read All Your Emails in Salesforce Marketing Cloud",
+      "source": "r/netsec",
+      "url": "https://slcyber.io/research-center/ghosts-of-encryption-past-salesforce-exacttarget/",
+      "timestamp": "",
+      "rating": 4.4,
+      "priority": "HIGH VALUE",
+      "summary": "This research from SLC Cyber details a vulnerability in Salesforce Marketing Cloud (formerly ExactTarget) that allowed researchers to decrypt and read email content that should have been protected. The title references legacy or weak encryption implementations ('ghosts of encryption past'), suggesting the vulnerability stems from outdated cryptographic practices still present in the platform. Salesforce Marketing Cloud is used by thousands of enterprises globally to manage customer communications, meaning sensitive marketing data, customer PII, and business communications could have been exposed. The ability to read encrypted emails in a major SaaS platform represents a significant confidentiality breach with potential regulatory implications (GDPR, CCPA). Organizations using Salesforce Marketing Cloud should review the full research for indicators of exposure and assess whether sensitive data was at risk. This also highlights the ongoing problem of legacy encryption implementations persisting in modern SaaS platforms. Security and compliance teams should treat this as a prompt to audit encryption standards across their SaaS portfolio.",
+      "signal": "Critical encryption weakness in Salesforce Marketing Cloud enabling email content decryption; affects enterprises with sensitive customer data in the platform."
+    },
+    {
+      "title": "HN Security - Extending Burp Suite for fun and profit \u2013 The Montoya way \u2013 Part 10",
+      "source": "r/netsec",
+      "url": "https://hnsecurity.it/blog/extending-burp-suite-for-fun-and-profit-the-montoya-way-part-10/",
+      "timestamp": "",
+      "rating": 3.6,
+      "priority": "WORTH KNOWING",
+      "summary": "This is the tenth installment in HN Security's series on extending Burp Suite using the Montoya API, with this entry focusing specifically on integrating AI capabilities into Burp Suite extensions. As AI-assisted security testing becomes increasingly relevant, understanding how to programmatically leverage AI within Burp workflows is a useful skill for security professionals and tool developers. The Montoya API is the modern, supported extension framework for Burp Suite Pro/Enterprise, replacing the older Extender API. AI integration in Burp could enable capabilities such as automated vulnerability analysis, smarter fuzzing logic, or natural language query of intercepted traffic. While this is a developer-focused tutorial rather than breaking news, it represents a growing trend of AI augmentation in professional security tooling. Practitioners who build or customize Burp extensions will find this directly applicable. The series format means readers should expect foundational Montoya API knowledge to be assumed.",
+      "signal": "Practical guide to AI integration in Burp Suite extensions; relevant for security engineers building or customizing tooling for AI-augmented testing workflows."
     },
     {
       "title": "Chrome is quietly installing a 4GB AI model on your device",
+      "source": "r/cybersecurity",
       "url": "https://cybernews.com/security/google-chrome-ai-model-device-no-consent/",
-      "source": "r/cybersecurity",
-      "timestamp": "2026-05-06T09:17:07+00:00",
-      "text": "",
-      "rating": 4.0,
-      "priority": "MEDIUM",
-      "summary": "Analysis of Chrome is quietly installing a 4GB AI model on your device...",
-      "signal": "Automated processing - manual review recommended"
-    },
-    {
-      "title": "Microsoft Edge stores your passwords in plaintext RAM... on purpose",
-      "url": "https://www.pcworld.com/article/3131805/microsoft-edge-stores-your-passwords-in-plaintext-ram-on-purpose.html",
-      "source": "r/cybersecurity",
-      "timestamp": "2026-05-06T01:17:27+00:00",
-      "text": "",
+      "timestamp": "",
       "rating": 3.8,
-      "priority": "CRITICAL",
-      "summary": "Analysis of Microsoft Edge stores your passwords in plaintext RAM... on purpose...",
-      "signal": "Automated processing - manual review recommended"
+      "priority": "WORTH KNOWING",
+      "summary": "Google Chrome has reportedly been silently downloading a 4GB AI model to user devices without explicit user consent, raising significant privacy and security concerns. The lack of transparency around this behavior is problematic from a consent and data governance perspective, particularly in enterprise environments where software installations are tightly controlled. A 4GB model being silently pushed represents a meaningful bandwidth and storage impact, and could violate enterprise software inventory and change management policies. Security teams managing endpoint environments should investigate whether this is occurring on corporate devices and whether it falls outside their acceptable use or software deployment policies. From a privacy standpoint, local AI models that process browsing data locally could still raise concerns depending on what data the model is trained on or has access to. This story also connects to the broader trend of AI being embedded into core consumer software with limited transparency. Defenders should assess if Chrome's AI features need to be disabled via policy in their environments.",
+      "signal": "Silent 4GB AI model deployment by Chrome raises enterprise endpoint control and consent concerns; IT and security teams should audit and consider policy responses."
     },
     {
       "title": "Palo Alto Firewall Zero-Day Under Active Exploitation",
+      "source": "r/cybersecurity",
       "url": "https://threatroad.substack.com/p/palo-alto-firewall-zero-day-under",
-      "source": "r/cybersecurity",
-      "timestamp": "2026-05-06T13:04:18+00:00",
-      "text": "",
-      "rating": 3.7,
-      "priority": "MEDIUM",
-      "summary": "Analysis of Palo Alto Firewall Zero-Day Under Active Exploitation...",
-      "signal": "Automated processing - manual review recommended"
-    },
-    {
-      "title": "I was hacked due to sim card spoofing",
-      "url": "https://www.reddit.com/r/cybersecurity/comments/1t584bt/i_was_hacked_due_to_sim_card_spoofing/",
-      "source": "r/cybersecurity",
-      "timestamp": "2026-05-06T09:46:40+00:00",
-      "text": "I lost all my accounts. For a blessing my bank is locked down until I verify its me, but, whoever hacked me now has everything. ",
-      "rating": 4.5,
-      "priority": "HIGH VALUE",
-      "summary": "Analysis of I was hacked due to sim card spoofing...",
-      "signal": "Automated processing - manual review recommended"
-    },
-    {
-      "title": "'CopyFail' attackers start cashing in on Linux flaw",
-      "url": "https://www.theregister.com/security/2026/05/05/copyfail-attackers-start-cashing-in-on-linux-flaw/5226930",
-      "source": "r/cybersecurity",
-      "timestamp": "2026-05-06T11:27:04+00:00",
-      "text": "",
-      "rating": 4.2,
-      "priority": "HIGH VALUE",
-      "summary": "Analysis of 'CopyFail' attackers start cashing in on Linux flaw...",
-      "signal": "Automated processing - manual review recommended"
-    },
-    {
-      "title": "Does SOC 2 actually reduce questionnaires, or just change them?",
-      "url": "https://www.reddit.com/r/cybersecurity/comments/1t5dyso/does_soc_2_actually_reduce_questionnaires_or_just/",
-      "source": "r/cybersecurity",
-      "timestamp": "2026-05-06T14:06:26+00:00",
-      "text": "Once a company gets SOC 2, do questionnaires meaningfully decrease\u2026 or do buyers still send them and ask environment-specific questions anyway?\n\nCurious from people who see it firsthand.",
-      "rating": 4.5,
-      "priority": "HIGH VALUE",
-      "summary": "Analysis of Does SOC 2 actually reduce questionnaires, or just change them?...",
-      "signal": "Automated processing - manual review recommended"
-    },
-    {
-      "title": "Not a Hack. A Handout. Inside the GTFOice.org Data Exposure",
-      "source": "r/cybersecurity",
-      "url": "https://blog.hagerstownrapidresponse.com/p/not-a-hack-a-handout-inside-the-gtfoice-org-data-exposure",
-      "timestamp": "2025-07-10T00:00:00Z",
-      "rating": 3.7,
-      "priority": "WORTH KNOWING",
-      "summary": "Analysis of a significant data exposure affecting GTFOice.org, an anti-ICE organizing platform, where sensitive user and activist data was left publicly accessible rather than exfiltrated via a traditional breach. The exposure appears rooted in fundamental security misconfigurations described as 'built with vibes, secured by nothing,' suggesting a lack of basic access controls or authentication on backend data stores. This is notable because the affected population includes individuals whose identities could carry serious real-world risks if exposed to law enforcement or hostile actors. The incident highlights a recurring pattern where politically or socially sensitive grassroots platforms are built rapidly without security-by-design principles. From a technical standpoint, this is a cautionary example of misconfigured storage or APIs rather than sophisticated attack methodology. Security teams supporting activist or NGO organizations should treat this as a reminder to audit data exposure surfaces urgently. The reputational and human safety implications elevate this beyond a typical misconfiguration story.",
-      "signal": "High-stakes data exposure affecting a sensitive activist platform with real-world safety implications for exposed individuals."
-    },
-    {
-      "title": "Proprietary Software, Hardware and Protocols Face AI-Driven Security Risk",
-      "source": "r/cybersecurity",
-      "url": "https://www.infosecurity-magazine.com/blogs/why-software-faces-ai-driven/",
-      "timestamp": "2025-07-10T00:00:00Z",
-      "rating": 3.8,
-      "priority": "WORTH KNOWING",
-      "summary": "Infosecurity Magazine blog post examining how AI tools are increasingly capable of reverse-engineering proprietary software, hardware, and protocols, eroding the security-by-obscurity protections that vendors have historically relied upon. The core argument is that AI-assisted analysis can dramatically accelerate vulnerability discovery in closed-source systems that were previously protected by complexity and inaccessibility. This has significant implications for ICS/SCADA environments, proprietary embedded systems, and legacy enterprise software where vendors assumed obscurity provided a security buffer. Security teams responsible for OT/ICS environments or systems with undisclosed protocols should treat this as an escalating threat vector. The trend aligns with observed growth in AI-assisted fuzzing, binary analysis tools like BinaryAI and IDA Pro AI extensions, and LLM-assisted reverse engineering workflows. While the article is a blog post rather than empirical research, the strategic warning is sound and timely.",
-      "signal": "AI acceleration of reverse engineering threatens proprietary system security assumptions, especially relevant for OT/ICS and embedded system defenders."
-    },
-    {
-      "title": "Vulnerability Garden",
-      "source": "r/cybersecurity",
-      "url": "https://vulnerability.garden",
-      "timestamp": "2025-07-10T00:00:00Z",
-      "rating": 3.6,
-      "priority": "WORTH KNOWING",
-      "summary": "Vulnerability Garden is a new community-contributed catalog of named vulnerabilities, attack techniques, and exploits, announced via shellsharks.com. The project aims to serve as a curated reference resource beyond what CVE databases and MITRE ATT&CK provide, with a focus on named/notable vulnerabilities and associated exploitation techniques. Community-contributed threat intelligence catalogs can be valuable for threat researchers, red teamers, and security educators if curation quality is maintained. The project is in early stages and its long-term value will depend on contributor quality and update frequency. Worth bookmarking for researchers who benefit from curated named-vulnerability references. No groundbreaking technical content at launch but potentially a useful future resource.",
-      "signal": "New community vulnerability/attack technique catalog worth monitoring as a supplementary research resource."
-    },
-    {
-      "title": "DigiCert breached via malicious screensaver file",
-      "source": "r/cybersecurity",
-      "url": "https://www.helpnetsecurity.com/2026/05/04/digicert-breach-code-signing-certificates-malware/",
-      "timestamp": "2025-07-10T00:00:00Z",
-      "rating": 4.9,
-      "priority": "HIGH VALUE",
-      "summary": "DigiCert, one of the world's largest certificate authorities, has reportedly suffered a breach initiated via a malicious screensaver file, with the incident potentially affecting code signing certificates. A breach of a major CA is a critical event because compromised code signing infrastructure can enable supply chain attacks at massive scale, allowing threat actors to sign malware with trusted certificates that bypass security controls. The attack vector \u2014 a malicious screensaver \u2014 is a classic but effective social engineering/phishing delivery mechanism targeting Windows .scr files, highlighting that even security-critical organizations remain vulnerable to endpoint-level attacks. If code signing certificates were compromised or issued fraudulently, the downstream impact could affect software distribution pipelines across thousands of organizations. Security teams should monitor DigiCert advisories for certificate revocation notices, audit recently signed software in their environments, and review endpoint protections against screensaver-based payload delivery. This incident warrants immediate attention from PKI administrators, software supply chain security teams, and incident responders. The URL date (2026/05/04) appears to be a publication path artifact.",
-      "signal": "Breach of a major certificate authority with potential code signing certificate compromise \u2014 critical supply chain security implications requiring immediate monitoring."
-    },
-    {
-      "title": "Microsoft Edge: Passwords end up in memory as plaintext",
-      "source": "r/cybersecurity",
-      "url": "https://www.heise.de/en/news/Microsoft-Edge-Passwords-end-up-in-memory-as-plaintext-11281576.html",
-      "timestamp": "2025-07-10T00:00:00Z",
-      "rating": 4.6,
-      "priority": "HIGH VALUE",
-      "summary": "Security researchers have identified that Microsoft Edge stores user passwords in plaintext in process memory, creating a significant credential theft risk for any attacker or malware with local memory access. This vulnerability is particularly impactful because browser-stored credentials are a primary target for infostealers, and plaintext memory exposure removes the protection that encrypted credential stores are supposed to provide. Attackers with local code execution \u2014 a very common post-exploitation position \u2014 could trivially dump Edge process memory to harvest credentials without needing to crack encrypted vaults. This affects enterprise environments where Edge is the mandated browser, especially those using Edge's built-in password manager. Security teams should advise users to avoid storing passwords in Edge's built-in manager pending a fix, and should evaluate deployment of dedicated password managers with stronger memory protection. Microsoft has not yet issued a patch based on available reporting. This is a high-severity finding with broad enterprise impact given Edge's significant market share.",
-      "signal": "Microsoft Edge password manager exposes credentials as plaintext in memory \u2014 immediate risk for infostealer campaigns and post-exploitation credential harvesting."
-    },
-    {
-      "title": "We scanned 200 high-star MCP servers. 205 critical findings. Here are 4 novel attack classes.",
-      "source": "r/cybersecurity",
-      "url": "https://www.reddit.com/r/cybersecurity/comments/1t5fw3q/we_scanned_200_highstar_mcp_servers_205_critical/",
       "timestamp": "",
       "rating": 4.8,
       "priority": "HIGH VALUE",
-      "summary": "Researchers built a static analyzer and scanned the top 200 high-starred MCP (Model Context Protocol) servers on GitHub and npm, uncovering 205 critical findings across 4 novel attack classes. MCP is rapidly becoming the dominant standard for connecting LLMs to external tools, with nearly 3,200 public servers currently available. The scale of the ecosystem combined with the density of critical findings (over 1 critical finding per server on average) suggests systemic security debt in AI tooling infrastructure. The 4 novel attack classes represent new threat vectors specific to LLM-tool integration patterns, likely including prompt injection via tool responses, tool poisoning, excessive permission grants, and data exfiltration paths. This is particularly significant because MCP servers are being deployed in production AI pipelines at enterprise scale with minimal security vetting. Security professionals integrating AI agents with external tools need to audit their MCP server dependencies immediately. This research establishes a new attack surface category that currently lacks mature defensive tooling or standards.",
-      "signal": "Novel attack taxonomy for a fast-growing AI infrastructure layer with proven critical vulnerabilities at scale \u2014 directly actionable for any org deploying LLM agents."
+      "summary": "A zero-day vulnerability in Palo Alto Networks firewall products is reportedly under active exploitation, which represents a critical threat given the prevalence of PAN-OS firewalls in enterprise and government network security infrastructure. Zero-days in perimeter security devices are among the highest-severity findings because exploitation typically provides direct access to network traffic, credentials, or the ability to pivot into protected network segments. Palo Alto firewalls are a primary target for sophisticated threat actors including nation-state groups, as evidenced by historical campaigns like those tracked by Volexity and Mandiant. Security teams should immediately check Palo Alto's security advisories for patches or mitigations, apply recommended configurations, and review logs for indicators of compromise. The source (Threatroad Substack) should be cross-referenced with official Palo Alto PSIRT advisories to confirm details and severity ratings. If confirmed, this should trigger emergency patching processes. Network segmentation and out-of-band management access should be verified as compensating controls.",
+      "signal": "Active zero-day exploitation of Palo Alto firewalls; immediate patch review, log analysis, and potential emergency response required for all PAN-OS environments."
     },
     {
-      "title": "Oracle Debuts Monthly Critical Security Patch Updates",
-      "source": "SecurityWeek",
-      "url": "https://www.securityweek.com/oracle-debuts-monthly-critical-security-patch-updates/",
+      "title": "CVE-2026-32710 MariaDB JSON_SCHEMA_VALID heap buffer overflow leading to RCE",
+      "source": "r/cybersecurity",
+      "url": "https://www.zeroday.cloud/blog/mariadb-cve-2026-32710-deep-dive",
+      "timestamp": "",
+      "rating": 4.5,
+      "priority": "HIGH VALUE",
+      "summary": "CVE-2026-32710 is a heap buffer overflow vulnerability in MariaDB's JSON_SCHEMA_VALID function that can lead to remote code execution. Heap buffer overflows in database engines are particularly severe because databases often run with elevated privileges and process untrusted input from applications. If exploitable remotely or via SQL injection chains, this could allow an attacker to achieve RCE on the underlying server hosting MariaDB. MariaDB is widely deployed as a MySQL alternative across Linux-based web and application stacks, increasing the scope of affected systems. The deep-dive blog format suggests technical proof-of-concept or exploitation details are included, making this highly actionable for both defenders (patch now) and researchers. Database administrators should immediately check their MariaDB version and apply available patches. Security teams should also assess whether any exposed or semi-trusted SQL interfaces could be used to trigger this vulnerability.",
+      "signal": "RCE vulnerability in widely deployed MariaDB database engine; immediate patching required across web and application stacks using MariaDB."
+    },
+    {
+      "title": "DAEMON Tools devs confirm breach, release malware-free version",
+      "source": "r/cybersecurity",
+      "url": "https://www.bleepingcomputer.com/news/security/daemon-tools-devs-confirm-breach-release-malware-free-version/",
+      "timestamp": "",
+      "rating": 4.8,
+      "priority": "HIGH VALUE",
+      "summary": "The developers of DAEMON Tools have officially confirmed the supply chain breach first reported by Kaspersky/Securelist and have released a clean, malware-free version of the software. This official confirmation is critical as it validates the supply chain attack reporting and provides a trusted remediation path for affected users and organizations. The release of a verified clean version gives IT and security teams a concrete action item: identify affected installations and update or reinstall from the confirmed clean release. Organizations should treat all systems that ran the compromised version as potentially backdoored and conduct forensic investigation to determine if the backdoor was activated and what data may have been accessed or exfiltrated. This BleepingComputer article is a more accessible and authoritative source than the Reddit post and likely includes additional details on the scope of the breach and recommended remediation steps. The confirmation pairs directly with the Securelist technical analysis to provide a complete picture of the incident. Incident response teams should prioritize this alongside the Securelist IOC data.",
+      "signal": "Official vendor confirmation of DAEMON Tools supply chain compromise with clean version released; triggers mandatory incident response for all affected enterprise installations."
+    },
+    {
+      "title": "Microsoft Edge stores your passwords in plaintext RAM... on purpose",
+      "source": "r/cybersecurity",
+      "url": "https://www.pcworld.com/article/3131805/microsoft-edge-stores-your-passwords-in-plaintext-ram-on-purpose.html",
+      "timestamp": "",
+      "rating": 4.2,
+      "priority": "HIGH VALUE",
+      "summary": "Microsoft Edge intentionally stores user passwords in plaintext within RAM as part of its password manager functionality, raising significant security concerns. While this is a design choice rather than a vulnerability per se, it means any process or attacker with memory access could extract credentials in cleartext. This is particularly concerning in the context of memory-scraping malware, which routinely targets browser processes for credential harvesting. Infostealers like RedLine, Vidar, and Lumma already target browser credential stores, and plaintext RAM storage lowers the bar for successful extraction. The 'on purpose' framing suggests Microsoft considers this an acceptable tradeoff, likely for performance or autofill functionality, but security professionals should factor this into endpoint risk assessments. Organizations relying on Edge's built-in password manager should consider migrating to dedicated password managers with stronger in-memory protection. This reinforces the argument against using browser-native credential storage in enterprise environments.",
+      "signal": "Browser password managers remain a high-value attack surface; this confirms Edge's in-memory credential handling is exploitable by any process with memory read access, directly relevant to infostealer threat modeling."
+    },
+    {
+      "title": "How do teams preserve institutional pentest knowledge when senior testers leave?",
+      "source": "r/cybersecurity",
+      "url": "https://www.reddit.com/r/cybersecurity/comments/1t5vldp/how_do_teams_preserve_institutional_pentest/",
+      "timestamp": "",
+      "rating": 3.6,
+      "priority": "WORTH KNOWING",
+      "summary": "This discussion addresses a real and underappreciated operational problem in security teams: knowledge attrition when experienced pentesters depart. Tacit knowledge \u2014 prioritization rationale, pattern recognition across engagements, handling of edge cases \u2014 is notoriously difficult to document and transfer. Mature teams address this through structured report templates, finding databases, and mentorship programs, but informal knowledge often remains siloed. The thread likely surfaces practical approaches such as knowledge bases, tagging systems, and AI-assisted summarization of historical reports. For security managers and team leads, this is a relevant operational concern that directly impacts testing quality and consistency. It's particularly timely as demand for pentesters grows and turnover increases. Not a breaking news item but a useful professional discussion.",
+      "signal": "Operational knowledge management in security teams is a persistent gap; relevant for security managers building sustainable red team or pentest practices."
+    },
+    {
+      "title": "Ran phishing awareness training for 200+ non-tech employees",
+      "source": "r/cybersecurity",
+      "url": "https://www.reddit.com/r/cybersecurity/comments/1t5cyr7/ran_phishing_awareness_training_for_200_nontech/",
       "timestamp": "",
       "rating": 3.7,
       "priority": "WORTH KNOWING",
-      "summary": "Oracle is shifting from its quarterly Critical Patch Update (CPU) cadence to a monthly release schedule for critical security patches. This is a significant operational change for organizations running Oracle products, as it aligns Oracle more closely with the monthly patch cadences of Microsoft and other major vendors. Security and patch management teams will need to update their vulnerability management workflows and change control processes to accommodate more frequent Oracle patch cycles. The move likely reflects pressure from the security community and enterprise customers frustrated with the quarterly window leaving known critical vulnerabilities unpatched for up to 90 days. Organizations with large Oracle footprints (databases, E-Business Suite, WebLogic, etc.) will need to reassess their patching SLAs and resource allocation. This is a process and operational change rather than a specific vulnerability disclosure, but it has broad impact for enterprise security teams.",
-      "signal": "Operational change affecting patch management workflows for all Oracle-dependent enterprises \u2014 update your vulnerability management SLAs accordingly."
+      "summary": "A security practitioner shares a detailed retrospective on running phishing awareness training for over 200 non-technical employees over two years, triggered by a near-miss BEC incident involving an almost-\u20ac80k fraudulent wire transfer. The post critically evaluates what worked and what didn't, specifically calling out shame-based click-fail notifications as counterproductive to building a security culture. This aligns with research showing that punitive approaches increase fear and reduce reporting behavior rather than improving vigilance. The BEC context is particularly valuable as vendor impersonation and finance-targeting attacks continue to be highly effective. Honest post-mortem assessments of security awareness programs are relatively rare and provide actionable data for teams designing or refining similar programs. The focus on behavioral outcomes rather than click rates reflects a more mature understanding of security culture building.",
+      "signal": "Practical lessons-learned from enterprise phishing simulation; directly actionable for security awareness program managers, especially the anti-shame finding and BEC context."
+    },
+    {
+      "title": "DOJ says ransomware gang tapped into Russian government databases",
+      "source": "r/cybersecurity",
+      "url": "https://techcrunch.com/2026/05/06/doj-says-ransomware-gang-tapped-into-russian-government-databases/",
+      "timestamp": "",
+      "rating": 4.6,
+      "priority": "HIGH VALUE",
+      "summary": "The DOJ has disclosed that a ransomware gang successfully infiltrated Russian government databases, a remarkable development that challenges conventional assumptions about cybercriminal groups operating under implicit state protection in Russia. This suggests either a breakdown in the tacit arrangement between Russian authorities and ransomware operators, or that the group operated with unusual independence or recklessness. The disclosure by DOJ implies some level of intelligence access or cooperation that yielded this information. From a geopolitical threat intelligence perspective, this is significant as it may signal fractures in the Russian cybercriminal ecosystem or indicate the group operates transnationally without Moscow's sanction. It also raises questions about what data was accessed and whether it has intelligence or operational implications. Security professionals tracking ransomware actor attribution and state-nexus relationships should monitor follow-on reporting closely. The DOJ's willingness to publicize this suggests strategic messaging intent beyond a standard indictment.",
+      "signal": "Rare instance of ransomware actors targeting Russian government infrastructure disclosed by DOJ; significant for threat intel analysts tracking ransomware ecosystem geopolitics and state-criminal nexus."
+    },
+    {
+      "title": "'CopyFail' attackers start cashing in on Linux flaw",
+      "source": "r/cybersecurity",
+      "url": "https://www.theregister.com/security/2026/05/05/copyfail-attackers-start-cashing-in-on-linux-flaw/5226930",
+      "timestamp": "",
+      "rating": 4.5,
+      "priority": "HIGH VALUE",
+      "summary": "Threat actors dubbed 'CopyFail' are actively exploiting a Linux vulnerability, moving from discovery or proof-of-concept into monetization phase which typically signals broader, more opportunistic exploitation. Linux flaws that reach active exploitation status are high priority given Linux's prevalence in cloud infrastructure, containers, and server environments. The transition to 'cashing in' suggests ransomware deployment, cryptomining, or data exfiltration campaigns have begun. Security teams running Linux-based infrastructure should treat this as an urgent patching priority. The Register's coverage typically includes CVE details and patch availability, making this actionable for defenders. Without the full article text, the specific CVE and affected distributions are unknown, but the exploitation status alone warrants immediate attention. Linux endpoint detection coverage should also be validated given historically weaker EDR visibility compared to Windows environments.",
+      "signal": "Active exploitation of a Linux flaw entering monetization phase; urgent patch priority for Linux infrastructure teams, especially cloud and container environments."
+    },
+    {
+      "title": "Instructure hacker claims data theft from 8,800 schools, universities",
+      "source": "r/cybersecurity",
+      "url": "https://www.bleepingcomputer.com/news/security/instructure-hacker-claims-data-theft-from-8-800-schools-universities/",
+      "timestamp": "",
+      "rating": 4.7,
+      "priority": "HIGH VALUE",
+      "summary": "The ShinyHunters extortion gang claims to have breached Instructure, the company behind the widely-used Canvas LMS, allegedly exfiltrating 280 million records covering students, teachers, and staff across 8,809 educational institutions. ShinyHunters is a well-documented and credible threat actor with a history of large-scale data theft and extortion, lending significant credibility to the claim even before independent verification. The scale \u2014 280 million records \u2014 would make this one of the largest education sector breaches on record. Canvas is deeply embedded in K-12 and higher education infrastructure across the US and internationally, meaning the affected population likely includes minors, creating elevated regulatory and legal exposure under COPPA, FERPA, and GDPR. Exposed data from an LMS typically includes PII, login credentials, assignment data, and potentially institutional network details. Security teams at affected institutions should monitor for credential stuffing attacks and spear-phishing campaigns leveraging the stolen data. Instructure's incident response communications and any official CVE or breach notification should be tracked closely.",
+      "signal": "Massive education sector breach claimed by credible threat actor ShinyHunters; 280M records across 8,800+ institutions creates immediate risk of credential stuffing, phishing, and regulatory action \u2014 high urgency for education sector security teams."
+    },
+    {
+      "title": "Does SOC 2 actually reduce questionnaires, or just change them?",
+      "source": "r/cybersecurity",
+      "url": "https://www.reddit.com/r/cybersecurity/comments/1t5dyso/does_soc_2_actually_reduce_questionnaires_or_just/",
+      "timestamp": "",
+      "rating": 3.5,
+      "priority": "WORTH KNOWING",
+      "summary": "This discussion thread explores a practical and frequently debated question in vendor risk management: whether achieving SOC 2 certification meaningfully reduces the volume of security questionnaires from customers or simply shifts their nature toward environment-specific follow-ups. This is relevant for GRC professionals, security managers advising on compliance investment, and sales engineers handling vendor assessments. Empirical feedback from practitioners provides more grounded insight than vendor compliance marketing materials. The consensus in such discussions typically finds that SOC 2 reduces basic questionnaires but sophisticated enterprise buyers still send detailed supplemental surveys. Understanding this dynamic helps organizations set realistic expectations about ROI on compliance certifications. Not breaking news but genuinely useful for compliance strategy decisions.",
+      "signal": "Practical GRC insight on SOC 2 ROI for vendor questionnaire reduction; useful for security managers advising on compliance investment and vendor risk program design."
+    },
+    {
+      "title": "Is AI generated code creating a non-linear security problem for AppSec teams?",
+      "source": "r/cybersecurity",
+      "url": "https://www.reddit.com/r/cybersecurity/comments/1t5j2b8/is_ai_generated_code_creating_a_nonlinear/",
+      "timestamp": "unknown",
+      "rating": 3.8,
+      "priority": "WORTH KNOWING",
+      "summary": "This Reddit discussion raises an important structural concern about AI-generated code in enterprise environments: rather than simply increasing code volume, AI tools produce countless slightly-varied instances of the same insecure patterns across multiple repositories, services, and teams. This creates a combinatorial security debt problem where traditional AppSec tooling and remediation workflows struggle to keep pace. The core issue is pattern proliferation \u2014 a single insecure AI suggestion (e.g., improper input validation, hardcoded secrets, weak crypto) can propagate across dozens of codebases simultaneously. Even when teams patch one instance, new AI-generated code reintroduces the same vulnerability in a slightly different form that may evade signature-based SAST rules. This represents a qualitative shift in the AppSec threat model, not just a quantitative one. Security teams may need to shift toward AI-aware SAST tuning, LLM output auditing, and developer education on AI code review.",
+      "signal": "Highlights an emerging structural AppSec challenge that security teams need to proactively address as AI coding assistants become ubiquitous."
+    },
+    {
+      "title": "Proprietary Software, Hardware and Protocols Face AI-Driven Security Risk",
+      "source": "Infosecurity Magazine",
+      "url": "https://www.infosecurity-magazine.com/blogs/why-software-faces-ai-driven/",
+      "timestamp": "unknown",
+      "rating": 3.6,
+      "priority": "WORTH KNOWING",
+      "summary": "This Infosecurity Magazine blog post addresses the growing security risk posed by AI systems against proprietary software, hardware, and protocols. AI tools are increasingly capable of reverse engineering closed-source systems, identifying vulnerabilities in proprietary protocols, and generating targeted exploits without needing source code access. The piece likely covers how LLMs and AI-assisted fuzzing lower the barrier for attacking legacy and proprietary systems that historically relied on obscurity as a partial defense. This is relevant to OT/ICS environments, embedded systems, and organizations with legacy proprietary infrastructure. Security teams should consider that the 'security through obscurity' posture is significantly weakened in an AI-augmented threat landscape. The article body was not provided, limiting full analysis.",
+      "signal": "Relevant trend piece for teams managing proprietary or legacy infrastructure where obscurity has historically reduced attack surface."
     },
     {
       "title": "Found a possibly interesting live attack",
       "source": "r/hacking",
       "url": "https://www.reddit.com/r/hacking/comments/1t4zw73/found_a_possibly_interesting_live_attack/",
-      "timestamp": "",
+      "timestamp": "unknown",
       "rating": 3.5,
       "priority": "WORTH KNOWING",
-      "summary": "A user stumbled upon what appears to be a live attack via a malicious Google Search result for 'Gallium prices,' indicating an active SEO poisoning or malvertising campaign targeting commodity/materials search queries. The attack vector involves a manipulated Google search result (6th organic result) with an unusually long encoded URL, suggesting redirect chaining or credential harvesting infrastructure. SEO poisoning campaigns targeting niche industrial or commodity searches are notable because they fly under the radar of typical threat intel focused on software/IT queries. This pattern has been used to deliver infostealers and RATs to supply chain and procurement professionals. The live nature of the attack at time of posting suggests it may still be active and worth investigating for threat hunters. The technique of targeting obscure non-IT search queries is increasingly common as attackers seek less-monitored entry points into corporate networks.",
-      "signal": "Potential live SEO poisoning campaign targeting industrial commodity searches \u2014 relevant for threat hunters and orgs with procurement/supply chain personnel."
+      "summary": "A Reddit user reports encountering what appears to be a live malicious redirect or SEO poisoning attack while searching for Gallium prices on Google. The user clicked a result with a suspiciously long URL embedded in a Google search result, which may indicate a SEO poisoning campaign or a malicious redirect chain targeting commercial/commodity search terms. SEO poisoning attacks targeting Google search results for industrial materials or commodity pricing could indicate targeted campaigns against supply chain or procurement personnel. The long encoded URL structure is consistent with redirect chain obfuscation techniques. While the post lacks full technical details, it's a real-world indicator of an active campaign worth monitoring. Security teams should be aware of SEO poisoning targeting unusual search terms beyond typical software/crack searches.",
+      "signal": "Potential indicator of an active SEO poisoning or malicious redirect campaign targeting commodity/industrial search terms."
     },
     {
-      "title": "GoHPTS (go-http-proxy-to-socks) v1.13.0 - New update with DNS spoofing and filtering",
-      "source": "r/hacking",
-      "url": "https://www.reddit.com/r/hacking/comments/1t41qhj/gohpts_gohttpproxytosocks_v1130_new_update_with/",
-      "timestamp": "",
-      "rating": 3.6,
-      "priority": "WORTH KNOWING",
-      "summary": "GoHPTS v1.13.0 is an open-source CLI tool that converts SOCKS proxies to HTTP proxies and has expanded to include DNS spoofing, DNS filtering, ARP/NDP/RA/RDNSS spoofing, Router Advertisement Guard evasion, and traffic sniffing capabilities. The tool now represents a fairly comprehensive Layer 2/3 network attack and manipulation toolkit wrapped in a single Go binary. RA Guard evasion is a particularly notable feature as it bypasses a common IPv6 security control deployed in enterprise switches. The combination of proxy pivoting, ARP spoofing, and DNS manipulation in one tool lowers the skill barrier for MitM attacks in internal network environments. Security teams should be aware this tool exists and update network detection signatures accordingly, particularly for RA Guard evasion patterns. The tool appears to be genuinely dual-use (legitimate proxy management plus offensive capabilities), making it harder to block purely by policy.",
-      "signal": "Dual-use network tool with RA Guard evasion and DNS spoofing \u2014 relevant for red teamers and defenders updating network-level detection rules."
-    },
-    {
-      "title": "BAT: VPS-based C2 with .ko/.sys rootkits compilation against target kernel headers",
-      "source": "r/hacking",
-      "url": "https://i.redd.it/uvcrot8ge5zg1.jpeg",
-      "timestamp": "",
-      "rating": 4.2,
-      "priority": "HIGH VALUE",
-      "summary": "A researcher has released an open-source offensive security framework called BAT that provides VPS-based C2 infrastructure with automated compilation of kernel-level rootkits (.ko for Linux LKM, .sys for Windows drivers) specifically targeting the victim system's kernel headers. This is highly significant because it automates one of the most technically demanding aspects of advanced persistent threats \u2014 building kernel-specific rootkits that evade eBPF-based detection systems like those used by modern EDR solutions. The project references Singularity, a known advanced Linux LKM rootkit designed to evade kernel-level eBPF detectors, suggesting the rootkit component is sophisticated. By automating rootkit compilation against target-specific kernel headers via a VPS backend, this framework dramatically lowers the barrier for deploying kernel-level implants. Security vendors and EDR developers need to be aware this tooling exists publicly and update their detection logic accordingly. Blue teams should prioritize kernel integrity monitoring and driver signing enforcement. The release on r/hacking of a C2 + rootkit framework represents meaningful capability proliferation.",
-      "signal": "Public release of automated kernel rootkit C2 framework targeting eBPF detection evasion \u2014 critical awareness item for EDR vendors and advanced blue teams."
-    },
-    {
-      "title": "'AccountDumpling': Hunting Down the Google-Sent Phishing Wave Compromising 30,000+ Facebook Accounts",
+      "title": "AccountDumpling: Hunting Down the Google-Sent Phishing Wave Compromising 30,000+ Facebook Accounts",
       "source": "r/programming",
       "url": "https://guard.io/labs/accountdumpling---hunting-down-the-google-sent-phishing-wave-compromising-30-000-facebook-accounts",
       "timestamp": "",
-      "rating": 4.6,
+      "rating": 4.4,
       "priority": "HIGH VALUE",
-      "summary": "Guard.io researchers uncovered a large-scale phishing campaign dubbed 'AccountDumpling' that exploited Google infrastructure to send convincing phishing emails, resulting in the compromise of over 30,000 Facebook accounts. The attack leveraged Google's own email sending mechanisms to bypass spam filters and lend legitimacy to the malicious messages, a sophisticated abuse of trusted sender reputation. This technique is particularly dangerous because traditional email authentication mechanisms like SPF, DKIM, and DMARC checks pass when Google's infrastructure is used, making detection extremely difficult for both users and security tools. The campaign highlights the growing abuse of legitimate cloud platforms as phishing delivery vectors, a trend that significantly undermines email-based trust models. Security teams should review email filtering rules to incorporate behavioral and content-based signals beyond sender authentication. Organizations relying heavily on Facebook for business operations face credential theft, account takeover, and potential downstream fraud exposure. The scale of 30,000+ compromised accounts indicates a well-resourced, automated operation.",
-      "signal": "Demonstrates critical abuse of trusted cloud infrastructure (Google) to bypass email authentication \u2014 important detection and defense insight for SOC teams."
+      "summary": "A large-scale phishing campaign dubbed 'AccountDumpling' has compromised over 30,000 Facebook accounts by leveraging Google infrastructure to send malicious emails, lending them legitimacy and bypassing standard email security filters. The attack exploits trusted Google services to relay phishing messages, making them appear authentic to both end users and automated detection systems. This technique of abusing legitimate platforms (Google in this case) to deliver phishing payloads is a sophisticated and increasingly common evasion strategy. The campaign specifically targets Facebook credentials at scale, suggesting an organized threat actor with monetization motives such as account resale, ad fraud, or further social engineering. Security professionals should note the dual-platform abuse vector as a significant detection challenge \u2014 emails passing SPF/DKIM checks due to legitimate Google origin will evade many gateway controls. The Guardio Labs research likely includes IOCs, infrastructure details, and detection guidance making it actionable for defenders. This highlights the growing risk of 'living off trusted services' phishing attacks that traditional email security struggles to block.",
+      "signal": "Abuse of Google infrastructure to deliver phishing at scale is a high-signal technique that undermines email authentication controls; 30,000+ compromised accounts confirms operational scale and warrants immediate attention from defenders and threat intelligence teams."
     },
     {
       "title": "Update on 'Co-authored-by: Copilot' in commit messages \u00b7 Issue #314311 \u00b7 microsoft/vscode",
       "source": "r/programming",
       "url": "https://github.com/microsoft/vscode/issues/314311",
       "timestamp": "",
-      "rating": 3.6,
+      "rating": 3.5,
       "priority": "WORTH KNOWING",
-      "summary": "Microsoft is addressing developer backlash over GitHub Copilot automatically appending 'Co-authored-by: Copilot' attribution to Git commit messages in VS Code. This seemingly minor feature has significant implications for software supply chain transparency, intellectual property attribution, and organizational compliance policies. Many enterprises and open-source projects have strict policies about AI-generated code contributions, and automatic attribution could trigger legal, licensing, or compliance reviews. The feature raises questions about auditability \u2014 if AI contribution metadata is embedded in commit history, organizations need processes to evaluate the extent of AI involvement. From a security perspective, AI-generated code attribution in commit logs could become a useful signal for threat modeling or code review prioritization. Microsoft's willingness to revisit this suggests developer experience and policy concerns are being taken seriously. This issue reflects the broader unresolved tension between AI tool transparency and developer autonomy.",
-      "signal": "AI attribution in code commits has emerging compliance, IP, and supply chain security implications worth monitoring for enterprise policy teams."
-    },
-    {
-      "title": "Popular DAEMON Tools software infected \u2013 supply chain attack ongoing since April 8, 2026",
-      "source": "r/programming",
-      "url": "https://securelist.com/tr/daemon-tools-backdoor/119654/",
-      "timestamp": "",
-      "rating": 4.9,
-      "priority": "HIGH VALUE",
-      "summary": "Kaspersky's Securelist has reported an active supply chain attack targeting DAEMON Tools, a widely used disk image mounting utility with a large global install base, with the compromise confirmed to have been ongoing since at least April 8, 2026. The attackers trojanized legitimate DAEMON Tools installers or update packages to deliver a backdoor, meaning users who downloaded or updated the software through official channels may be infected. Supply chain attacks of this nature are particularly severe because they exploit user trust in established software vendors, bypassing traditional indicators of malicious activity. The backdoor's capabilities have not been fully detailed in the snippet, but supply chain implants typically provide persistent remote access, data exfiltration capability, and lateral movement potential. Organizations should immediately audit systems for DAEMON Tools installations, check installer hashes against known-good values, and investigate for indicators of compromise published by Kaspersky. This attack pattern mirrors high-profile incidents like SolarWinds and 3CX, underscoring that even niche but widely-deployed utilities are high-value targets. Security teams should treat any DAEMON Tools installation from the affected window as potentially compromised until cleared.",
-      "signal": "Active, confirmed supply chain attack on widely-installed software \u2014 immediate IOC review, asset auditing, and potential incident response warranted."
+      "summary": "Microsoft is updating how GitHub Copilot attributes AI-generated contributions in Git commit messages within VS Code, specifically around the 'Co-authored-by: Copilot' tag automatically inserted into commits. This issue thread reflects ongoing community and developer debate about AI attribution in version control, touching on transparency, licensing, intellectual property, and code provenance concerns. The practice of auto-inserting AI co-authorship metadata has implications for open source projects, enterprise compliance, and audit trails. Some developers object to automatic attribution as it may complicate licensing reviews or misrepresent the nature of contributions. Microsoft's official update signals they are responding to user feedback and may be changing or making the behavior configurable. For security and compliance professionals, the question of tracking AI-generated code in repositories is becoming a governance issue, particularly in regulated industries. This is a relatively low-urgency item but represents an important evolving norm in AI-assisted development workflows.",
+      "signal": "AI code attribution in version control is an emerging governance and compliance concern; Microsoft's policy update on Copilot commit tagging will affect how organizations track and audit AI-generated code at scale."
     }
   ],
-  "videos": [],
-  "lastUpdate": "2026-05-06T16:27:07.869780+00:00",
+  "videos": [
+    {
+      "title": "Stop Using AI Connectors Until You Watch This",
+      "creator": "NahamSec",
+      "url": "https://www.youtube.com/watch?v=_3TfHEfVvCQ",
+      "timestamp": "2026-05-04T12:54:00Z",
+      "rating": 4.2,
+      "worthWatching": true,
+      "summary": "NahamSec, a well-known bug bounty hunter and security researcher, covers critical security vulnerabilities associated with AI connectors \u2014 integrations that link AI models like ChatGPT or Claude to external tools, APIs, and data sources. The video focuses on real-world attack surfaces introduced when AI systems are given agentic capabilities to interact with third-party services, databases, and internal systems. Key technical concerns addressed likely include prompt injection attacks that hijack connector actions, overprivileged OAuth scopes granted to AI integrations, and data exfiltration risks when AI agents process untrusted content. NahamSec demonstrates how attackers can exploit these connectors to perform unauthorized actions on behalf of users, making this a highly relevant topic as AI tool integrations proliferate rapidly across enterprise and consumer platforms. The content draws from his bug bounty experience, giving it practical credibility beyond theoretical discussion. This topic is timely given the explosive growth of MCP (Model Context Protocol) servers and similar AI-to-tool integration frameworks in 2025-2026. The security community has been slow to address these risks, making educational content like this valuable for both defenders and offensive security researchers. The video serves as both a warning and a practical guide for those building or using AI-powered workflows.",
+      "verdict": "Watch this if you use or build AI integrations \u2014 NahamSec provides practical, experience-backed insight into a rapidly emerging and underappreciated attack surface that most developers and security teams are currently ignoring."
+    },
+    {
+      "title": "One ChatGPT connector. One email. Full AI agent hijack.  #BugBounty #PromptInjection  #ai #hacking",
+      "creator": "NahamSec",
+      "url": "https://www.youtube.com/watch?v=xHwXjcHMuMI",
+      "timestamp": "2026-05-04T12:53:00Z",
+      "rating": 4.2,
+      "worthWatching": true,
+      "summary": "NahamSec demonstrates a prompt injection attack against a ChatGPT connector that integrates with email, showing how a single crafted email can hijack an AI agent's behavior entirely. The attack exploits the fundamental trust issue in LLM-based agents where external content (the email body) is treated with the same authority as system-level instructions. By embedding adversarial instructions inside an incoming email, the attacker can redirect the AI agent to perform unintended actions such as exfiltrating data, sending malicious replies, or escalating privileges within connected services. This is a real-world bug bounty finding, lending it immediate practical relevance rather than being purely theoretical. The video highlights the growing attack surface created by AI connectors and integrations, which are being rapidly deployed without sufficient input sanitization or privilege separation. The core lesson is that any AI agent with access to external data streams (email, documents, web content) is potentially vulnerable to indirect prompt injection. This class of vulnerability is increasingly critical as enterprises adopt agentic AI workflows. NahamSec's presentation style is clear and hands-on, making it accessible to both security practitioners and developers building AI-integrated systems.",
+      "verdict": "Watch it if you work with or build AI agents and integrations \u2014 this is a concise, real-world demonstration of one of the most underappreciated attack vectors in modern AI security."
+    },
+    {
+      "title": "A Guide to LNK File Forensics",
+      "creator": "The Cyber Mentor",
+      "url": "https://www.youtube.com/watch?v=S73Z7H0S1xQ",
+      "timestamp": "2026-05-01T16:00:00Z",
+      "rating": 4.1,
+      "worthWatching": true,
+      "summary": "The Cyber Mentor (Heath Adams) delivers a focused tutorial on LNK file forensics, a genuinely underappreciated area of digital forensics that has significant practical value for incident responders and threat hunters. LNK files, also known as Windows Shell Link files or shortcut files, are automatically created by Windows when users open files and can persist metadata long after original files are deleted, making them critical artifacts for timeline reconstruction. The video likely covers how to locate LNK files in standard Windows directories such as Recent Items and how to parse them using tools like LECmd (Eric Zimmerman's tool) or similar forensics utilities. Key forensic data embedded in LNK files includes original file path, MAC timestamps, file size, volume serial number, network share information, and even host machine details, all of which can corroborate or contradict a suspect's claimed activity. This content is particularly relevant given that LNK files are also commonly weaponized by threat actors as malware delivery mechanisms, making this dual-purpose knowledge valuable for both defensive forensics and malware analysis. The video serves as a teaser for TCM Security's upcoming forensics course, so it likely provides solid foundational content while motivating viewers toward the paid curriculum. The Cyber Mentor is known for clear, practical, hands-on instruction that translates well to real-world scenarios, making even niche topics accessible to intermediate practitioners. For blue teamers, SOC analysts, and those pursuing DFIR careers, understanding LNK artifacts is a concrete skill that appears regularly in CTFs, certifications like FOR500, and actual investigations.",
+      "verdict": "Watch this if you work in DFIR or blue team roles \u2014 LNK file forensics is a practical, high-signal skill that directly applies to real investigations and is often overlooked in standard training."
+    }
+  ],
+  "lastUpdate": "2026-05-07T05:24:44.140532+00:00",
   "metadata": {
-    "totalScraped": 44,
-    "filtered": 30,
+    "totalScraped": 47,
+    "filtered": 29,
     "sources": []
   }
 }
